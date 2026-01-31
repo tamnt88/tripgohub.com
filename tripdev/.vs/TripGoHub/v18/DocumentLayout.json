@@ -1,65 +1,65 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\PLTT\\FTP\\tripgohub.com\\tripdev\\",
+  "WorkspaceRootPath": "D:\\MAGIC\\TRIPGOHUB.COM\\tripgohub.com\\tripdev\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F4D6791F-94C7-4F19-A93B-88B933E5D7C1}|D:\\PLTT\\FTP\\tripgohub.com\\tripdev\\TripGoHub.Web|d:\\pltt\\ftp\\tripgohub.com\\tripdev\\tripgohub.web\\default.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
-      "RelativeMoniker": "D:0:0:{F4D6791F-94C7-4F19-A93B-88B933E5D7C1}|D:\\PLTT\\FTP\\tripgohub.com\\tripdev\\TripGoHub.Web|solutionrelative:tripgohub.web\\default.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
+      "AbsoluteMoniker": "D:0:0:{F4D6791F-94C7-4F19-A93B-88B933E5D7C1}|D:\\MAGIC\\TRIPGOHUB.COM\\tripgohub.com\\tripdev\\TripGoHub.Web|d:\\magic\\tripgohub.com\\tripgohub.com\\tripdev\\tripgohub.web\\default.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "RelativeMoniker": "D:0:0:{F4D6791F-94C7-4F19-A93B-88B933E5D7C1}|D:\\MAGIC\\TRIPGOHUB.COM\\tripgohub.com\\tripdev\\TripGoHub.Web|solutionrelative:tripgohub.web\\default.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F4D6791F-94C7-4F19-A93B-88B933E5D7C1}|D:\\PLTT\\FTP\\tripgohub.com\\tripdev\\TripGoHub.Web|d:\\pltt\\ftp\\tripgohub.com\\tripdev\\tripgohub.web\\admin\\assets\\css\\admin.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "AbsoluteMoniker": "D:0:0:{F4D6791F-94C7-4F19-A93B-88B933E5D7C1}|D:\\PLTT\\FTP\\tripgohub.com\\tripdev\\TripGoHub.Web|D:\\MAGIC\\TRIPGOHUB.COM\\tripgohub.com\\tripdev\\tripgohub.web\\admin\\assets\\css\\admin.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
       "RelativeMoniker": "D:0:0:{F4D6791F-94C7-4F19-A93B-88B933E5D7C1}|D:\\PLTT\\FTP\\tripgohub.com\\tripdev\\TripGoHub.Web|solutionrelative:tripgohub.web\\admin\\assets\\css\\admin.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F4D6791F-94C7-4F19-A93B-88B933E5D7C1}|D:\\PLTT\\FTP\\tripgohub.com\\tripdev\\TripGoHub.Web|d:\\pltt\\ftp\\tripgohub.com\\tripdev\\tripgohub.web\\admin\\login.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "AbsoluteMoniker": "D:0:0:{F4D6791F-94C7-4F19-A93B-88B933E5D7C1}|D:\\PLTT\\FTP\\tripgohub.com\\tripdev\\TripGoHub.Web|D:\\MAGIC\\TRIPGOHUB.COM\\tripgohub.com\\tripdev\\tripgohub.web\\admin\\login.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
       "RelativeMoniker": "D:0:0:{F4D6791F-94C7-4F19-A93B-88B933E5D7C1}|D:\\PLTT\\FTP\\tripgohub.com\\tripdev\\TripGoHub.Web|solutionrelative:tripgohub.web\\admin\\login.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F4D6791F-94C7-4F19-A93B-88B933E5D7C1}|D:\\PLTT\\FTP\\tripgohub.com\\tripdev\\TripGoHub.Web|d:\\pltt\\ftp\\tripgohub.com\\tripdev\\tripgohub.web\\admin\\admin.master||{B30AFBFF-D992-43B7-B62D-2642580A2883}",
+      "AbsoluteMoniker": "D:0:0:{F4D6791F-94C7-4F19-A93B-88B933E5D7C1}|D:\\PLTT\\FTP\\tripgohub.com\\tripdev\\TripGoHub.Web|D:\\MAGIC\\TRIPGOHUB.COM\\tripgohub.com\\tripdev\\tripgohub.web\\admin\\admin.master||{B30AFBFF-D992-43B7-B62D-2642580A2883}",
       "RelativeMoniker": "D:0:0:{F4D6791F-94C7-4F19-A93B-88B933E5D7C1}|D:\\PLTT\\FTP\\tripgohub.com\\tripdev\\TripGoHub.Web|solutionrelative:tripgohub.web\\admin\\admin.master||{B30AFBFF-D992-43B7-B62D-2642580A2883}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F4D6791F-94C7-4F19-A93B-88B933E5D7C1}|D:\\PLTT\\FTP\\tripgohub.com\\tripdev\\TripGoHub.Web|d:\\pltt\\ftp\\tripgohub.com\\tripdev\\tripgohub.web\\admin\\default.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{F4D6791F-94C7-4F19-A93B-88B933E5D7C1}|D:\\PLTT\\FTP\\tripgohub.com\\tripdev\\TripGoHub.Web|D:\\MAGIC\\TRIPGOHUB.COM\\tripgohub.com\\tripdev\\tripgohub.web\\admin\\default.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F4D6791F-94C7-4F19-A93B-88B933E5D7C1}|D:\\PLTT\\FTP\\tripgohub.com\\tripdev\\TripGoHub.Web|solutionrelative:tripgohub.web\\admin\\default.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F4D6791F-94C7-4F19-A93B-88B933E5D7C1}|D:\\PLTT\\FTP\\tripgohub.com\\tripdev\\TripGoHub.Web|d:\\pltt\\ftp\\tripgohub.com\\tripdev\\tripgohub.web\\admin\\default.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "AbsoluteMoniker": "D:0:0:{F4D6791F-94C7-4F19-A93B-88B933E5D7C1}|D:\\PLTT\\FTP\\tripgohub.com\\tripdev\\TripGoHub.Web|D:\\MAGIC\\TRIPGOHUB.COM\\tripgohub.com\\tripdev\\tripgohub.web\\admin\\default.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
       "RelativeMoniker": "D:0:0:{F4D6791F-94C7-4F19-A93B-88B933E5D7C1}|D:\\PLTT\\FTP\\tripgohub.com\\tripdev\\TripGoHub.Web|solutionrelative:tripgohub.web\\admin\\default.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F4D6791F-94C7-4F19-A93B-88B933E5D7C1}|D:\\PLTT\\FTP\\tripgohub.com\\tripdev\\TripGoHub.Web|d:\\pltt\\ftp\\tripgohub.com\\tripdev\\tripgohub.web\\admin\\wards.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "AbsoluteMoniker": "D:0:0:{F4D6791F-94C7-4F19-A93B-88B933E5D7C1}|D:\\PLTT\\FTP\\tripgohub.com\\tripdev\\TripGoHub.Web|D:\\MAGIC\\TRIPGOHUB.COM\\tripgohub.com\\tripdev\\tripgohub.web\\admin\\wards.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
       "RelativeMoniker": "D:0:0:{F4D6791F-94C7-4F19-A93B-88B933E5D7C1}|D:\\PLTT\\FTP\\tripgohub.com\\tripdev\\TripGoHub.Web|solutionrelative:tripgohub.web\\admin\\wards.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F4D6791F-94C7-4F19-A93B-88B933E5D7C1}|D:\\PLTT\\FTP\\tripgohub.com\\tripdev\\TripGoHub.Web|d:\\pltt\\ftp\\tripgohub.com\\tripdev\\tripgohub.web\\admin\\provinces.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "AbsoluteMoniker": "D:0:0:{F4D6791F-94C7-4F19-A93B-88B933E5D7C1}|D:\\PLTT\\FTP\\tripgohub.com\\tripdev\\TripGoHub.Web|D:\\MAGIC\\TRIPGOHUB.COM\\tripgohub.com\\tripdev\\tripgohub.web\\admin\\provinces.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
       "RelativeMoniker": "D:0:0:{F4D6791F-94C7-4F19-A93B-88B933E5D7C1}|D:\\PLTT\\FTP\\tripgohub.com\\tripdev\\TripGoHub.Web|solutionrelative:tripgohub.web\\admin\\provinces.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F4D6791F-94C7-4F19-A93B-88B933E5D7C1}|D:\\PLTT\\FTP\\tripgohub.com\\tripdev\\TripGoHub.Web|d:\\pltt\\ftp\\tripgohub.com\\tripdev\\tripgohub.web\\app_code\\security\\adminauthmodule.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{F4D6791F-94C7-4F19-A93B-88B933E5D7C1}|D:\\PLTT\\FTP\\tripgohub.com\\tripdev\\TripGoHub.Web|D:\\MAGIC\\TRIPGOHUB.COM\\tripgohub.com\\tripdev\\tripgohub.web\\app_code\\security\\adminauthmodule.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F4D6791F-94C7-4F19-A93B-88B933E5D7C1}|D:\\PLTT\\FTP\\tripgohub.com\\tripdev\\TripGoHub.Web|solutionrelative:tripgohub.web\\app_code\\security\\adminauthmodule.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F4D6791F-94C7-4F19-A93B-88B933E5D7C1}|D:\\PLTT\\FTP\\tripgohub.com\\tripdev\\TripGoHub.Web|d:\\pltt\\ftp\\tripgohub.com\\tripdev\\tripgohub.web\\app_code\\security\\adminauthservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{F4D6791F-94C7-4F19-A93B-88B933E5D7C1}|D:\\PLTT\\FTP\\tripgohub.com\\tripdev\\TripGoHub.Web|D:\\MAGIC\\TRIPGOHUB.COM\\tripgohub.com\\tripdev\\tripgohub.web\\app_code\\security\\adminauthservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F4D6791F-94C7-4F19-A93B-88B933E5D7C1}|D:\\PLTT\\FTP\\tripgohub.com\\tripdev\\TripGoHub.Web|solutionrelative:tripgohub.web\\app_code\\security\\adminauthservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F4D6791F-94C7-4F19-A93B-88B933E5D7C1}|D:\\PLTT\\FTP\\tripgohub.com\\tripdev\\TripGoHub.Web|d:\\pltt\\ftp\\tripgohub.com\\tripdev\\tripgohub.web\\admin\\login.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{F4D6791F-94C7-4F19-A93B-88B933E5D7C1}|D:\\PLTT\\FTP\\tripgohub.com\\tripdev\\TripGoHub.Web|D:\\MAGIC\\TRIPGOHUB.COM\\tripgohub.com\\tripdev\\tripgohub.web\\admin\\login.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F4D6791F-94C7-4F19-A93B-88B933E5D7C1}|D:\\PLTT\\FTP\\tripgohub.com\\tripdev\\TripGoHub.Web|solutionrelative:tripgohub.web\\admin\\login.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F4D6791F-94C7-4F19-A93B-88B933E5D7C1}|D:\\PLTT\\FTP\\tripgohub.com\\tripdev\\TripGoHub.Web|d:\\pltt\\ftp\\tripgohub.com\\tripdev\\tripgohub.web\\admin\\provinces.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{F4D6791F-94C7-4F19-A93B-88B933E5D7C1}|D:\\PLTT\\FTP\\tripgohub.com\\tripdev\\TripGoHub.Web|D:\\MAGIC\\TRIPGOHUB.COM\\tripgohub.com\\tripdev\\tripgohub.web\\admin\\provinces.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F4D6791F-94C7-4F19-A93B-88B933E5D7C1}|D:\\PLTT\\FTP\\tripgohub.com\\tripdev\\TripGoHub.Web|solutionrelative:tripgohub.web\\admin\\provinces.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F4D6791F-94C7-4F19-A93B-88B933E5D7C1}|D:\\PLTT\\FTP\\tripgohub.com\\tripdev\\TripGoHub.Web|d:\\pltt\\ftp\\tripgohub.com\\tripdev\\tripgohub.web\\app_code\\models\\ward.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{F4D6791F-94C7-4F19-A93B-88B933E5D7C1}|D:\\PLTT\\FTP\\tripgohub.com\\tripdev\\TripGoHub.Web|D:\\MAGIC\\TRIPGOHUB.COM\\tripgohub.com\\tripdev\\tripgohub.web\\app_code\\models\\ward.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F4D6791F-94C7-4F19-A93B-88B933E5D7C1}|D:\\PLTT\\FTP\\tripgohub.com\\tripdev\\TripGoHub.Web|solutionrelative:tripgohub.web\\app_code\\models\\ward.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F4D6791F-94C7-4F19-A93B-88B933E5D7C1}|D:\\PLTT\\FTP\\tripgohub.com\\tripdev\\TripGoHub.Web|d:\\pltt\\ftp\\tripgohub.com\\tripdev\\tripgohub.web\\app_code\\tripgohubdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{F4D6791F-94C7-4F19-A93B-88B933E5D7C1}|D:\\PLTT\\FTP\\tripgohub.com\\tripdev\\TripGoHub.Web|D:\\MAGIC\\TRIPGOHUB.COM\\tripgohub.com\\tripdev\\tripgohub.web\\app_code\\tripgohubdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F4D6791F-94C7-4F19-A93B-88B933E5D7C1}|D:\\PLTT\\FTP\\tripgohub.com\\tripdev\\TripGoHub.Web|solutionrelative:tripgohub.web\\app_code\\tripgohubdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F4D6791F-94C7-4F19-A93B-88B933E5D7C1}|D:\\PLTT\\FTP\\tripgohub.com\\tripdev\\TripGoHub.Web|d:\\pltt\\ftp\\tripgohub.com\\tripdev\\tripgohub.web\\content\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "AbsoluteMoniker": "D:0:0:{F4D6791F-94C7-4F19-A93B-88B933E5D7C1}|D:\\PLTT\\FTP\\tripgohub.com\\tripdev\\TripGoHub.Web|D:\\MAGIC\\TRIPGOHUB.COM\\tripgohub.com\\tripdev\\tripgohub.web\\content\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
       "RelativeMoniker": "D:0:0:{F4D6791F-94C7-4F19-A93B-88B933E5D7C1}|D:\\PLTT\\FTP\\tripgohub.com\\tripdev\\TripGoHub.Web|solutionrelative:tripgohub.web\\content\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
     }
   ],
@@ -70,133 +70,88 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 9,
+          "SelectedChildIndex": 6,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "admin.css",
-              "DocumentMoniker": "D:\\PLTT\\FTP\\tripgohub.com\\tripdev\\TripGoHub.Web\\admin\\assets\\css\\admin.css",
-              "RelativeDocumentMoniker": "TripGoHub.Web\\admin\\assets\\css\\admin.css",
-              "ToolTip": "D:\\PLTT\\FTP\\tripgohub.com\\tripdev\\TripGoHub.Web\\admin\\assets\\css\\admin.css",
-              "RelativeToolTip": "TripGoHub.Web\\admin\\assets\\css\\admin.css",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2026-01-31T04:03:37.813Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Document",
               "DocumentIndex": 6,
               "Title": "wards.aspx",
-              "DocumentMoniker": "D:\\PLTT\\FTP\\tripgohub.com\\tripdev\\TripGoHub.Web\\admin\\wards.aspx",
+              "DocumentMoniker": "D:\\MAGIC\\TRIPGOHUB.COM\\tripgohub.com\\tripdev\\TripGoHub.Web\\admin\\wards.aspx",
               "RelativeDocumentMoniker": "TripGoHub.Web\\admin\\wards.aspx",
-              "ToolTip": "D:\\PLTT\\FTP\\tripgohub.com\\tripdev\\TripGoHub.Web\\admin\\wards.aspx",
+              "ToolTip": "D:\\MAGIC\\TRIPGOHUB.COM\\tripgohub.com\\tripdev\\TripGoHub.Web\\admin\\wards.aspx",
               "RelativeToolTip": "TripGoHub.Web\\admin\\wards.aspx",
               "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
-              "WhenOpened": "2026-01-31T03:45:35.465Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-31T03:45:35.465Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 5,
               "Title": "default.aspx",
-              "DocumentMoniker": "D:\\PLTT\\FTP\\tripgohub.com\\tripdev\\TripGoHub.Web\\admin\\default.aspx",
+              "DocumentMoniker": "D:\\MAGIC\\TRIPGOHUB.COM\\tripgohub.com\\tripdev\\TripGoHub.Web\\admin\\default.aspx",
               "RelativeDocumentMoniker": "TripGoHub.Web\\admin\\default.aspx",
-              "ToolTip": "D:\\PLTT\\FTP\\tripgohub.com\\tripdev\\TripGoHub.Web\\admin\\default.aspx",
+              "ToolTip": "D:\\MAGIC\\TRIPGOHUB.COM\\tripgohub.com\\tripdev\\TripGoHub.Web\\admin\\default.aspx",
               "RelativeToolTip": "TripGoHub.Web\\admin\\default.aspx",
               "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
-              "WhenOpened": "2026-01-31T03:23:03.809Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-31T03:23:03.809Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 7,
               "Title": "provinces.aspx",
-              "DocumentMoniker": "D:\\PLTT\\FTP\\tripgohub.com\\tripdev\\TripGoHub.Web\\admin\\provinces.aspx",
+              "DocumentMoniker": "D:\\MAGIC\\TRIPGOHUB.COM\\tripgohub.com\\tripdev\\TripGoHub.Web\\admin\\provinces.aspx",
               "RelativeDocumentMoniker": "TripGoHub.Web\\admin\\provinces.aspx",
-              "ToolTip": "D:\\PLTT\\FTP\\tripgohub.com\\tripdev\\TripGoHub.Web\\admin\\provinces.aspx",
+              "ToolTip": "D:\\MAGIC\\TRIPGOHUB.COM\\tripgohub.com\\tripdev\\TripGoHub.Web\\admin\\provinces.aspx",
               "RelativeToolTip": "TripGoHub.Web\\admin\\provinces.aspx",
               "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
-              "WhenOpened": "2026-01-31T03:24:10.868Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-31T03:24:10.868Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 8,
               "Title": "AdminAuthModule.cs",
-              "DocumentMoniker": "D:\\PLTT\\FTP\\tripgohub.com\\tripdev\\TripGoHub.Web\\App_Code\\Security\\AdminAuthModule.cs",
+              "DocumentMoniker": "D:\\MAGIC\\TRIPGOHUB.COM\\tripgohub.com\\tripdev\\TripGoHub.Web\\App_Code\\Security\\AdminAuthModule.cs",
               "RelativeDocumentMoniker": "TripGoHub.Web\\App_Code\\Security\\AdminAuthModule.cs",
-              "ToolTip": "D:\\PLTT\\FTP\\tripgohub.com\\tripdev\\TripGoHub.Web\\App_Code\\Security\\AdminAuthModule.cs",
+              "ToolTip": "D:\\MAGIC\\TRIPGOHUB.COM\\tripgohub.com\\tripdev\\TripGoHub.Web\\App_Code\\Security\\AdminAuthModule.cs",
               "RelativeToolTip": "TripGoHub.Web\\App_Code\\Security\\AdminAuthModule.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-31T03:36:08.23Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-31T03:36:08.23Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 9,
               "Title": "AdminAuthService.cs",
-              "DocumentMoniker": "D:\\PLTT\\FTP\\tripgohub.com\\tripdev\\TripGoHub.Web\\App_Code\\Security\\AdminAuthService.cs",
+              "DocumentMoniker": "D:\\MAGIC\\TRIPGOHUB.COM\\tripgohub.com\\tripdev\\TripGoHub.Web\\App_Code\\Security\\AdminAuthService.cs",
               "RelativeDocumentMoniker": "TripGoHub.Web\\App_Code\\Security\\AdminAuthService.cs",
-              "ToolTip": "D:\\PLTT\\FTP\\tripgohub.com\\tripdev\\TripGoHub.Web\\App_Code\\Security\\AdminAuthService.cs",
+              "ToolTip": "D:\\MAGIC\\TRIPGOHUB.COM\\tripgohub.com\\tripdev\\TripGoHub.Web\\App_Code\\Security\\AdminAuthService.cs",
               "RelativeToolTip": "TripGoHub.Web\\App_Code\\Security\\AdminAuthService.cs",
               "ViewState": "AgIAACMAAAAAAAAAAAAIwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-31T03:36:02.705Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-31T03:36:02.705Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 10,
               "Title": "login.aspx.cs",
-              "DocumentMoniker": "D:\\PLTT\\FTP\\tripgohub.com\\tripdev\\TripGoHub.Web\\admin\\login.aspx.cs",
+              "DocumentMoniker": "D:\\MAGIC\\TRIPGOHUB.COM\\tripgohub.com\\tripdev\\TripGoHub.Web\\admin\\login.aspx.cs",
               "RelativeDocumentMoniker": "TripGoHub.Web\\admin\\login.aspx.cs",
-              "ToolTip": "D:\\PLTT\\FTP\\tripgohub.com\\tripdev\\TripGoHub.Web\\admin\\login.aspx.cs",
+              "ToolTip": "D:\\MAGIC\\TRIPGOHUB.COM\\tripgohub.com\\tripdev\\TripGoHub.Web\\admin\\login.aspx.cs",
               "RelativeToolTip": "TripGoHub.Web\\admin\\login.aspx.cs",
               "ViewState": "AgIAAA0AAAAAAAAAAAAgwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-31T03:35:36.741Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "provinces.aspx.cs",
-              "DocumentMoniker": "D:\\PLTT\\FTP\\tripgohub.com\\tripdev\\TripGoHub.Web\\admin\\provinces.aspx.cs",
-              "RelativeDocumentMoniker": "TripGoHub.Web\\admin\\provinces.aspx.cs",
-              "ToolTip": "D:\\PLTT\\FTP\\tripgohub.com\\tripdev\\TripGoHub.Web\\admin\\provinces.aspx.cs",
-              "RelativeToolTip": "TripGoHub.Web\\admin\\provinces.aspx.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-31T03:24:10.938Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "default.aspx.cs",
-              "DocumentMoniker": "D:\\PLTT\\FTP\\tripgohub.com\\tripdev\\TripGoHub.Web\\admin\\default.aspx.cs",
-              "RelativeDocumentMoniker": "TripGoHub.Web\\admin\\default.aspx.cs",
-              "ToolTip": "D:\\PLTT\\FTP\\tripgohub.com\\tripdev\\TripGoHub.Web\\admin\\default.aspx.cs",
-              "RelativeToolTip": "TripGoHub.Web\\admin\\default.aspx.cs",
-              "ViewState": "AgIAAAcAAAAAAAAAAAAswAgAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-31T03:23:03.876Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-31T03:35:36.741Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "Default.aspx",
-              "DocumentMoniker": "D:\\PLTT\\FTP\\tripgohub.com\\tripdev\\TripGoHub.Web\\Default.aspx",
+              "DocumentMoniker": "D:\\MAGIC\\TRIPGOHUB.COM\\tripgohub.com\\tripdev\\TripGoHub.Web\\Default.aspx",
               "RelativeDocumentMoniker": "TripGoHub.Web\\Default.aspx",
-              "ToolTip": "D:\\PLTT\\FTP\\tripgohub.com\\tripdev\\TripGoHub.Web\\Default.aspx",
-              "RelativeToolTip": "TripGoHub.Web\\Default.aspx",
+              "ToolTip": "D:\\MAGIC\\TRIPGOHUB.COM\\tripgohub.com\\tripdev\\TripGoHub.Web\\Default.aspx*",
+              "RelativeToolTip": "TripGoHub.Web\\Default.aspx*",
               "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
               "WhenOpened": "2026-01-31T02:58:02.992Z",
@@ -204,68 +159,99 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "admin.css",
+              "DocumentMoniker": "D:\\MAGIC\\TRIPGOHUB.COM\\tripgohub.com\\tripdev\\TripGoHub.Web\\admin\\assets\\css\\admin.css",
+              "RelativeDocumentMoniker": "TripGoHub.Web\\admin\\assets\\css\\admin.css",
+              "ToolTip": "D:\\MAGIC\\TRIPGOHUB.COM\\tripgohub.com\\tripdev\\TripGoHub.Web\\admin\\assets\\css\\admin.css",
+              "RelativeToolTip": "TripGoHub.Web\\admin\\assets\\css\\admin.css",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2026-01-31T04:03:37.813Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "provinces.aspx.cs",
+              "DocumentMoniker": "D:\\MAGIC\\TRIPGOHUB.COM\\tripgohub.com\\tripdev\\TripGoHub.Web\\admin\\provinces.aspx.cs",
+              "RelativeDocumentMoniker": "TripGoHub.Web\\admin\\provinces.aspx.cs",
+              "ToolTip": "D:\\MAGIC\\TRIPGOHUB.COM\\tripgohub.com\\tripdev\\TripGoHub.Web\\admin\\provinces.aspx.cs",
+              "RelativeToolTip": "TripGoHub.Web\\admin\\provinces.aspx.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-31T03:24:10.938Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "default.aspx.cs",
+              "DocumentMoniker": "D:\\MAGIC\\TRIPGOHUB.COM\\tripgohub.com\\tripdev\\TripGoHub.Web\\admin\\default.aspx.cs",
+              "RelativeDocumentMoniker": "TripGoHub.Web\\admin\\default.aspx.cs",
+              "ToolTip": "D:\\MAGIC\\TRIPGOHUB.COM\\tripgohub.com\\tripdev\\TripGoHub.Web\\admin\\default.aspx.cs",
+              "RelativeToolTip": "TripGoHub.Web\\admin\\default.aspx.cs",
+              "ViewState": "AgIAAAcAAAAAAAAAAAAswAgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-31T03:23:03.876Z"
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 3,
               "Title": "Admin.master",
-              "DocumentMoniker": "D:\\PLTT\\FTP\\tripgohub.com\\tripdev\\TripGoHub.Web\\admin\\Admin.master",
+              "DocumentMoniker": "D:\\MAGIC\\TRIPGOHUB.COM\\tripgohub.com\\tripdev\\TripGoHub.Web\\admin\\Admin.master",
               "RelativeDocumentMoniker": "TripGoHub.Web\\admin\\Admin.master",
-              "ToolTip": "D:\\PLTT\\FTP\\tripgohub.com\\tripdev\\TripGoHub.Web\\admin\\Admin.master",
+              "ToolTip": "D:\\MAGIC\\TRIPGOHUB.COM\\tripgohub.com\\tripdev\\TripGoHub.Web\\admin\\Admin.master",
               "RelativeToolTip": "TripGoHub.Web\\admin\\Admin.master",
               "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
-              "WhenOpened": "2026-01-31T03:50:13.156Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-31T03:50:13.156Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
               "Title": "login.aspx",
-              "DocumentMoniker": "D:\\PLTT\\FTP\\tripgohub.com\\tripdev\\TripGoHub.Web\\admin\\login.aspx",
+              "DocumentMoniker": "D:\\MAGIC\\TRIPGOHUB.COM\\tripgohub.com\\tripdev\\TripGoHub.Web\\admin\\login.aspx",
               "RelativeDocumentMoniker": "TripGoHub.Web\\admin\\login.aspx",
-              "ToolTip": "D:\\PLTT\\FTP\\tripgohub.com\\tripdev\\TripGoHub.Web\\admin\\login.aspx",
+              "ToolTip": "D:\\MAGIC\\TRIPGOHUB.COM\\tripgohub.com\\tripdev\\TripGoHub.Web\\admin\\login.aspx",
               "RelativeToolTip": "TripGoHub.Web\\admin\\login.aspx",
               "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
-              "WhenOpened": "2026-01-31T03:22:40.348Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-31T03:22:40.348Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 12,
               "Title": "Ward.cs",
-              "DocumentMoniker": "D:\\PLTT\\FTP\\tripgohub.com\\tripdev\\TripGoHub.Web\\App_Code\\Models\\Ward.cs",
+              "DocumentMoniker": "D:\\MAGIC\\TRIPGOHUB.COM\\tripgohub.com\\tripdev\\TripGoHub.Web\\App_Code\\Models\\Ward.cs",
               "RelativeDocumentMoniker": "TripGoHub.Web\\App_Code\\Models\\Ward.cs",
-              "ToolTip": "D:\\PLTT\\FTP\\tripgohub.com\\tripdev\\TripGoHub.Web\\App_Code\\Models\\Ward.cs",
+              "ToolTip": "D:\\MAGIC\\TRIPGOHUB.COM\\tripgohub.com\\tripdev\\TripGoHub.Web\\App_Code\\Models\\Ward.cs",
               "RelativeToolTip": "TripGoHub.Web\\App_Code\\Models\\Ward.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAjAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-31T03:13:29.961Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-31T03:13:29.961Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 13,
               "Title": "TripGoHubDbContext.cs",
-              "DocumentMoniker": "D:\\PLTT\\FTP\\tripgohub.com\\tripdev\\TripGoHub.Web\\App_Code\\TripGoHubDbContext.cs",
+              "DocumentMoniker": "D:\\MAGIC\\TRIPGOHUB.COM\\tripgohub.com\\tripdev\\TripGoHub.Web\\App_Code\\TripGoHubDbContext.cs",
               "RelativeDocumentMoniker": "TripGoHub.Web\\App_Code\\TripGoHubDbContext.cs",
-              "ToolTip": "D:\\PLTT\\FTP\\tripgohub.com\\tripdev\\TripGoHub.Web\\App_Code\\TripGoHubDbContext.cs",
+              "ToolTip": "D:\\MAGIC\\TRIPGOHUB.COM\\tripgohub.com\\tripdev\\TripGoHub.Web\\App_Code\\TripGoHubDbContext.cs",
               "RelativeToolTip": "TripGoHub.Web\\App_Code\\TripGoHubDbContext.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-31T03:13:14.796Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-31T03:13:14.796Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 14,
               "Title": "site.css",
-              "DocumentMoniker": "D:\\PLTT\\FTP\\tripgohub.com\\tripdev\\TripGoHub.Web\\Content\\site.css",
+              "DocumentMoniker": "D:\\MAGIC\\TRIPGOHUB.COM\\tripgohub.com\\tripdev\\TripGoHub.Web\\Content\\site.css",
               "RelativeDocumentMoniker": "TripGoHub.Web\\Content\\site.css",
-              "ToolTip": "D:\\PLTT\\FTP\\tripgohub.com\\tripdev\\TripGoHub.Web\\Content\\site.css",
+              "ToolTip": "D:\\MAGIC\\TRIPGOHUB.COM\\tripgohub.com\\tripdev\\TripGoHub.Web\\Content\\site.css",
               "RelativeToolTip": "TripGoHub.Web\\Content\\site.css",
               "ViewState": "AgIAABUAAAAAAAAAAAAAABUAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2026-01-31T02:58:13.054Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-31T02:58:13.054Z"
             }
           ]
         }

@@ -1,0 +1,39 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Site.master.cs" Inherits="TripGoHub.Web.SiteMaster" %>
+<!DOCTYPE html>
+<html lang="vi">
+<head runat="server">
+    <meta charset="utf-8" />
+    <title><asp:ContentPlaceHolder ID="TitleContent" runat="server">TripGoHub</asp:ContentPlaceHolder></title>
+    <link rel="stylesheet" href="<%: ResolveUrl("~/Content/vendor/bootstrap/css/bootstrap.min.css") %>" />
+    <link rel="stylesheet" href="<%: ResolveUrl("~/Content/vendor/fontawesome/css/all.min.css") %>" />
+    <link rel="stylesheet" href="<%: ResolveUrl("~/Content/site.css") %>" />
+</head>
+<body>
+    <form id="form1" runat="server">
+        <header class="topbar">
+            <div class="brand">TripGoHub</div>
+            <nav class="nav">
+                <a href="#">Sim du lịch</a>
+                <a href="#">Vé tham quan</a>
+                <a href="<%: ResolveUrl("~/transfer/booking.aspx") %>">Xe di chuyển</a>
+                <a href="#">Homestay</a>
+                <a href="#">Tour</a>
+                <a href="#">Vé máy bay</a>
+                <a href="#">Phòng khách sạn</a>
+            </nav>
+            <div class="actions">
+                <button type="button" class="btn btn--ghost"><i class="fa-solid fa-user"></i> Đăng nhập</button>
+                <button type="button" class="btn btn--primary"><i class="fa-solid fa-user-plus"></i> Tạo tài khoản</button>
+            </div>
+        </header>
+
+        <main>
+            <asp:ContentPlaceHolder ID="MainContent" runat="server"></asp:ContentPlaceHolder>
+        </main>
+    </form>
+
+    <script src="<%: ResolveUrl("~/Content/vendor/jquery/jquery.min.js") %>"></script>
+    <script src="<%: ResolveUrl("~/Content/vendor/bootstrap/js/bootstrap.bundle.min.js") %>"></script>
+    <asp:ContentPlaceHolder ID="Scripts" runat="server"></asp:ContentPlaceHolder>
+</body>
+</html>

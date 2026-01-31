@@ -40,3 +40,4 @@
 ## Tài liệu nội bộ
 - `document/DB_RULES.md`
 - `document/ADMIN_RULES.md`
+- `document/TRANSFER_FEATURE.md`

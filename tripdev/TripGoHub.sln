@@ -1,0 +1,44 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 18
+VisualStudioVersion = 18.2.11415.280 d18.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "TripGoHub.Web", "TripGoHub.Web\", "{F4D6791F-94C7-4F19-A93B-88B933E5D7C1}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.8"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_58301"
+		Debug.AspNetCompiler.PhysicalPath = "TripGoHub.Web\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_58301\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_58301"
+		Release.AspNetCompiler.PhysicalPath = "TripGoHub.Web\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_58301\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "58301"
+		SlnRelativePath = "TripGoHub.Web\"
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F4D6791F-94C7-4F19-A93B-88B933E5D7C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4D6791F-94C7-4F19-A93B-88B933E5D7C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4D6791F-94C7-4F19-A93B-88B933E5D7C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4D6791F-94C7-4F19-A93B-88B933E5D7C1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {63880831-13C1-45DC-B44E-AA951137A78D}
+	EndGlobalSection
+EndGlobal

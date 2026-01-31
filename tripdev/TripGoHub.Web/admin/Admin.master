@@ -1,0 +1,42 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Admin.master.cs" Inherits="TripGoHub.Web.Admin.AdminMaster" %>
+<!DOCTYPE html>
+<html lang="vi">
+<head runat="server">
+    <meta charset="utf-8" />
+    <title><asp:ContentPlaceHolder ID="TitleContent" runat="server" /></title>
+    <link rel="stylesheet" href="<%: ResolveUrl("~/admin/assets/vendor/bootstrap/css/bootstrap.min.css") %>" />
+    <link rel="stylesheet" href="<%: ResolveUrl("~/admin/assets/vendor/fontawesome/css/all.min.css") %>" />
+    <link rel="stylesheet" href="<%: ResolveUrl("~/admin/assets/vendor/datatables/css/jquery.dataTables.min.css") %>" />
+    <link rel="stylesheet" href="<%: ResolveUrl("~/admin/assets/css/admin.css") %>" />
+</head>
+<body class="bg-light">
+    <form id="form1" runat="server">
+        <header class="admin-top py-3">
+            <div class="container-fluid d-flex align-items-center justify-content-between">
+                <div class="brand fw-bold">TripGoHub Admin</div>
+                <div class="admin-user d-flex align-items-center gap-2">
+                    <i class="fa-solid fa-user"></i>
+                    <asp:Label runat="server" ID="LblUser" />
+                    <asp:Button runat="server" ID="BtnLogout" Text="Đăng xuất" CssClass="btn btn-outline-secondary btn-sm" OnClick="BtnLogout_Click" />
+                </div>
+            </div>
+        </header>
+
+        <main class="admin-shell">
+            <aside class="admin-menu">
+                <a href="default.aspx" class="menu-item" id="menuDashboard" runat="server"><i class="fa-solid fa-gauge"></i> Dashboard</a>
+                <a href="provinces.aspx" class="menu-item" id="menuProvinces" runat="server"><i class="fa-solid fa-map"></i> Tỉnh/Thành</a>
+                <a href="wards.aspx" class="menu-item" id="menuWards" runat="server"><i class="fa-solid fa-location-dot"></i> Phường/Xã</a>
+            </aside>
+            <section class="admin-content">
+                <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+            </section>
+        </main>
+    </form>
+
+    <script src="<%: ResolveUrl("~/admin/assets/vendor/jquery/jquery.min.js") %>"></script>
+    <script src="<%: ResolveUrl("~/admin/assets/vendor/bootstrap/js/bootstrap.bundle.min.js") %>"></script>
+    <script src="<%: ResolveUrl("~/admin/assets/vendor/datatables/js/jquery.dataTables.min.js") %>"></script>
+    <asp:ContentPlaceHolder ID="Scripts" runat="server" />
+</body>
+</html>

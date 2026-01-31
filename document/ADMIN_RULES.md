@@ -16,3 +16,10 @@
 
 ## CRUD
 - CRUD gọi qua AJAX tới `admin/api/*.ashx`.
+
+## Data access
+- Tất cả thao tác đọc/ghi dữ liệu trong hệ thống phải dùng Entity Framework (EF). Không dùng `SqlConnection`, `SqlCommand`, hoặc raw SQL trực tiếp.
+
+## Module folders
+- Trang admin phải đặt đúng thư mục theo module: `admin/{module}/...`.
+- API admin phải đặt đúng thư mục theo module: `admin/api/{module}/...`.

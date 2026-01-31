@@ -25,8 +25,31 @@
         <main class="admin-shell">
             <aside class="admin-menu">
                 <a href="default.aspx" class="menu-item" id="menuDashboard" runat="server"><i class="fa-solid fa-gauge"></i> Dashboard</a>
-                <a href="provinces.aspx" class="menu-item" id="menuProvinces" runat="server"><i class="fa-solid fa-map"></i> Tỉnh/Thành</a>
-                <a href="wards.aspx" class="menu-item" id="menuWards" runat="server"><i class="fa-solid fa-location-dot"></i> Phường/Xã</a>
+                <div class="menu-group" id="menuGroupTransfer" runat="server">
+                    <button type="button" class="menu-toggle" data-target="menuTransferList">
+                        <span><i class="fa-solid fa-car"></i> Đặt xe</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <div class="menu-list" id="menuTransferList">
+                        <a href="transfer/transfer_bookings.aspx" class="menu-item" id="menuTransferBookings" runat="server">Booking</a>
+                        <a href="transfer/transfer_routes.aspx" class="menu-item" id="menuTransferRoutes" runat="server">Tuyến</a>
+                        <a href="transfer/transfer_route_prices.aspx" class="menu-item" id="menuTransferRoutePrices" runat="server">Giá tuyến</a>
+                        <a href="transfer/transfer_vehicles.aspx" class="menu-item" id="menuTransferVehicles" runat="server">Xe</a>
+                        <a href="transfer/vehicle_brands.aspx" class="menu-item" id="menuTransferVehicleBrands" runat="server">Hãng xe</a>
+                        <a href="transfer/vehicle_models.aspx" class="menu-item" id="menuTransferVehicleModels" runat="server">Model xe</a>
+                        <a href="transfer/transfer_drivers.aspx" class="menu-item" id="menuTransferDrivers" runat="server">Tài xế</a>
+                    </div>
+                </div>
+                <div class="menu-group" id="menuGroupSystem" runat="server">
+                    <button type="button" class="menu-toggle" data-target="menuSystemList">
+                        <span><i class="fa-solid fa-gear"></i> Cấu hình hệ thống</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <div class="menu-list" id="menuSystemList">
+                        <a href="system/provinces.aspx" class="menu-item" id="menuProvinces" runat="server">Tỉnh/Thành</a>
+                        <a href="system/wards.aspx" class="menu-item" id="menuWards" runat="server">Phường/Xã</a>
+                    </div>
+                </div>
             </aside>
             <section class="admin-content">
                 <asp:ContentPlaceHolder ID="MainContent" runat="server" />
@@ -37,6 +60,17 @@
     <script src="<%: ResolveUrl("~/admin/assets/vendor/jquery/jquery.min.js") %>"></script>
     <script src="<%: ResolveUrl("~/admin/assets/vendor/bootstrap/js/bootstrap.bundle.min.js") %>"></script>
     <script src="<%: ResolveUrl("~/admin/assets/vendor/datatables/js/jquery.dataTables.min.js") %>"></script>
+    <script>
+        $(function () {
+            $('.menu-toggle').on('click', function () {
+                var targetId = $(this).data('target');
+                var group = $(this).closest('.menu-group');
+                var list = $('#' + targetId);
+                group.toggleClass('is-open');
+                list.slideToggle(120);
+            });
+        });
+    </script>
     <asp:ContentPlaceHolder ID="Scripts" runat="server" />
 </body>
 </html>

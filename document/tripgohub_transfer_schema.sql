@@ -6,6 +6,8 @@ IF OBJECT_ID('dbo.tgh_route_price', 'U') IS NOT NULL DROP TABLE dbo.tgh_route_pr
 IF OBJECT_ID('dbo.tgh_route', 'U') IS NOT NULL DROP TABLE dbo.tgh_route;
 IF OBJECT_ID('dbo.tgh_driver', 'U') IS NOT NULL DROP TABLE dbo.tgh_driver;
 IF OBJECT_ID('dbo.tgh_vehicle', 'U') IS NOT NULL DROP TABLE dbo.tgh_vehicle;
+IF OBJECT_ID('dbo.tgh_vehicle_model', 'U') IS NOT NULL DROP TABLE dbo.tgh_vehicle_model;
+IF OBJECT_ID('dbo.tgh_vehicle_brand', 'U') IS NOT NULL DROP TABLE dbo.tgh_vehicle_brand;
 IF OBJECT_ID('dbo.tgh_vehicle_type', 'U') IS NOT NULL DROP TABLE dbo.tgh_vehicle_type;
 
 CREATE TABLE dbo.tgh_vehicle_type (
@@ -21,9 +23,51 @@ CREATE TABLE dbo.tgh_vehicle_type (
     UpdatedBy NVARCHAR(100) NOT NULL DEFAULT(N'system')
 );
 
+CREATE TABLE dbo.tgh_vehicle_brand (
+    BrandId INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+    Name NVARCHAR(100) NOT NULL,
+    Slug NVARCHAR(120) NOT NULL,
+    LogoUrl NVARCHAR(300) NULL,
+    LogoAlt NVARCHAR(200) NULL,
+    Summary NVARCHAR(500) NULL,
+    SeoTitle NVARCHAR(200) NULL,
+    SeoDescription NVARCHAR(500) NULL,
+    SeoKeywords NVARCHAR(500) NULL,
+    Status TINYINT NOT NULL DEFAULT(1),
+    SortOrder INT NOT NULL DEFAULT(0),
+    CreatedAt DATETIME2 NOT NULL DEFAULT(SYSUTCDATETIME()),
+    CreatedBy NVARCHAR(100) NOT NULL DEFAULT(N'system'),
+    UpdatedAt DATETIME2 NOT NULL DEFAULT(SYSUTCDATETIME()),
+    UpdatedBy NVARCHAR(100) NOT NULL DEFAULT(N'system')
+);
+
+CREATE UNIQUE INDEX UX_tgh_vehicle_brand_Slug ON dbo.tgh_vehicle_brand (Slug);
+
+CREATE TABLE dbo.tgh_vehicle_model (
+    ModelId INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+    BrandId INT NOT NULL,
+    Name NVARCHAR(100) NOT NULL,
+    Slug NVARCHAR(120) NOT NULL,
+    YearFrom INT NULL,
+    YearTo INT NULL,
+    SeoTitle NVARCHAR(200) NULL,
+    SeoDescription NVARCHAR(500) NULL,
+    Status TINYINT NOT NULL DEFAULT(1),
+    SortOrder INT NOT NULL DEFAULT(0),
+    CreatedAt DATETIME2 NOT NULL DEFAULT(SYSUTCDATETIME()),
+    CreatedBy NVARCHAR(100) NOT NULL DEFAULT(N'system'),
+    UpdatedAt DATETIME2 NOT NULL DEFAULT(SYSUTCDATETIME()),
+    UpdatedBy NVARCHAR(100) NOT NULL DEFAULT(N'system'),
+    CONSTRAINT FK_tgh_vehicle_model_brand FOREIGN KEY (BrandId) REFERENCES dbo.tgh_vehicle_brand (BrandId)
+);
+
+CREATE UNIQUE INDEX UX_tgh_vehicle_model_Brand_Slug ON dbo.tgh_vehicle_model (BrandId, Slug);
+
 CREATE TABLE dbo.tgh_vehicle (
     VehicleId INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
     VehicleTypeId INT NOT NULL,
+    BrandId INT NULL,
+    ModelId INT NULL,
     LicensePlate NVARCHAR(20) NOT NULL,
     Brand NVARCHAR(100) NULL,
     Model NVARCHAR(100) NULL,
@@ -35,7 +79,9 @@ CREATE TABLE dbo.tgh_vehicle (
     CreatedBy NVARCHAR(100) NOT NULL DEFAULT(N'system'),
     UpdatedAt DATETIME2 NOT NULL DEFAULT(SYSUTCDATETIME()),
     UpdatedBy NVARCHAR(100) NOT NULL DEFAULT(N'system'),
-    CONSTRAINT FK_tgh_vehicle_vehicle_type FOREIGN KEY (VehicleTypeId) REFERENCES dbo.tgh_vehicle_type (VehicleTypeId)
+    CONSTRAINT FK_tgh_vehicle_vehicle_type FOREIGN KEY (VehicleTypeId) REFERENCES dbo.tgh_vehicle_type (VehicleTypeId),
+    CONSTRAINT FK_tgh_vehicle_brand FOREIGN KEY (BrandId) REFERENCES dbo.tgh_vehicle_brand (BrandId),
+    CONSTRAINT FK_tgh_vehicle_model FOREIGN KEY (ModelId) REFERENCES dbo.tgh_vehicle_model (ModelId)
 );
 
 CREATE UNIQUE INDEX UX_tgh_vehicle_LicensePlate ON dbo.tgh_vehicle (LicensePlate);

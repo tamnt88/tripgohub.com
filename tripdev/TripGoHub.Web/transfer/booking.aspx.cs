@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Configuration;
-using System.Data;
-using System.Data.SqlClient;
+using System.Linq;
 using System.Web.Script.Serialization;
 
 namespace TripGoHub.Web.Transfer
@@ -21,13 +19,15 @@ namespace TripGoHub.Web.Transfer
 
         private void BindRoutes()
         {
-            using (var conn = new SqlConnection(GetConnectionString()))
-            using (var cmd = new SqlCommand("SELECT RouteId, FromName, ToName, (FromName + N' - ' + ToName) AS RouteName FROM dbo.tgh_route WHERE Status = 1 ORDER BY SortOrder, RouteId", conn))
-            using (var da = new SqlDataAdapter(cmd))
+            using (var db = new TripGoHubDbContext())
             {
-                var dt = new DataTable();
-                da.Fill(dt);
-                RouteId.DataSource = dt;
+                var routes = db.Routes.Where(x => x.Status == 1)
+                    .OrderBy(x => x.SortOrder)
+                    .ThenBy(x => x.RouteId)
+                    .Select(x => new { x.RouteId, RouteName = x.FromName + " - " + x.ToName })
+                    .ToList();
+
+                RouteId.DataSource = routes;
                 RouteId.DataTextField = "RouteName";
                 RouteId.DataValueField = "RouteId";
                 RouteId.DataBind();
@@ -36,38 +36,35 @@ namespace TripGoHub.Web.Transfer
 
         private void BindRouteJson()
         {
-            var list = new System.Collections.Generic.List<RouteItem>();
-            using (var conn = new SqlConnection(GetConnectionString()))
-            using (var cmd = new SqlCommand("SELECT RouteId, FromName, ToName FROM dbo.tgh_route WHERE Status = 1 ORDER BY SortOrder, RouteId", conn))
+            using (var db = new TripGoHubDbContext())
             {
-                conn.Open();
-                using (var reader = cmd.ExecuteReader())
-                {
-                    while (reader.Read())
+                var list = db.Routes.Where(x => x.Status == 1)
+                    .OrderBy(x => x.SortOrder)
+                    .ThenBy(x => x.RouteId)
+                    .Select(x => new RouteItem
                     {
-                        list.Add(new RouteItem
-                        {
-                            RouteId = reader.GetInt32(0),
-                            FromName = reader.GetString(1),
-                            ToName = reader.GetString(2)
-                        });
-                    }
-                }
-            }
+                        RouteId = x.RouteId,
+                        FromName = x.FromName,
+                        ToName = x.ToName
+                    })
+                    .ToList();
 
-            var serializer = new JavaScriptSerializer();
-            RouteDataJson.Text = serializer.Serialize(list);
+                var serializer = new JavaScriptSerializer();
+                RouteDataJson.Text = serializer.Serialize(list);
+            }
         }
 
         private void BindVehicleTypes()
         {
-            using (var conn = new SqlConnection(GetConnectionString()))
-            using (var cmd = new SqlCommand("SELECT VehicleTypeId, Name FROM dbo.tgh_vehicle_type WHERE Status = 1 ORDER BY SortOrder, VehicleTypeId", conn))
-            using (var da = new SqlDataAdapter(cmd))
+            using (var db = new TripGoHubDbContext())
             {
-                var dt = new DataTable();
-                da.Fill(dt);
-                VehicleTypeId.DataSource = dt;
+                var types = db.VehicleTypes.Where(x => x.Status == 1)
+                    .OrderBy(x => x.SortOrder)
+                    .ThenBy(x => x.VehicleTypeId)
+                    .Select(x => new { x.VehicleTypeId, x.Name })
+                    .ToList();
+
+                VehicleTypeId.DataSource = types;
                 VehicleTypeId.DataTextField = "Name";
                 VehicleTypeId.DataValueField = "VehicleTypeId";
                 VehicleTypeId.DataBind();
@@ -124,14 +121,11 @@ namespace TripGoHub.Web.Transfer
 
         private int FindRouteIdByName(string fromName, string toName)
         {
-            using (var conn = new SqlConnection(GetConnectionString()))
-            using (var cmd = new SqlCommand("SELECT RouteId FROM dbo.tgh_route WHERE FromName = @FromName AND ToName = @ToName AND Status = 1", conn))
+            using (var db = new TripGoHubDbContext())
             {
-                cmd.Parameters.AddWithValue("@FromName", fromName);
-                cmd.Parameters.AddWithValue("@ToName", toName);
-                conn.Open();
-                var result = cmd.ExecuteScalar();
-                return result == null ? 0 : Convert.ToInt32(result);
+                return db.Routes.Where(x => x.FromName == fromName && x.ToName == toName && x.Status == 1)
+                    .Select(x => x.RouteId)
+                    .FirstOrDefault();
             }
         }
 
@@ -188,32 +182,33 @@ namespace TripGoHub.Web.Transfer
             var email = string.IsNullOrWhiteSpace(CustomerEmail.Text) ? null : CustomerEmail.Text.Trim();
             var note = string.IsNullOrWhiteSpace(Note.Text) ? null : Note.Text.Trim();
 
-            using (var conn = new SqlConnection(GetConnectionString()))
-            using (var cmd = new SqlCommand(@"
-INSERT INTO dbo.tgh_transfer_booking
-(BookingCode, CustomerName, CustomerPhone, CustomerEmail, RouteId, VehicleTypeId, PickupTime, ReturnTime, TripType, PaymentType, PaymentStatus, TotalAmount, Note, Status, SortOrder, CreatedAt, CreatedBy, UpdatedAt, UpdatedBy)
-VALUES
-(@BookingCode, @CustomerName, @CustomerPhone, @CustomerEmail, @RouteId, @VehicleTypeId, @PickupTime, @ReturnTime, @TripType, @PaymentType, @PaymentStatus, @TotalAmount, @Note, 1, 0, SYSUTCDATETIME(), @CreatedBy, SYSUTCDATETIME(), @UpdatedBy)
-", conn))
+            using (var db = new TripGoHubDbContext())
             {
-                cmd.Parameters.AddWithValue("@BookingCode", bookingCode);
-                cmd.Parameters.AddWithValue("@CustomerName", customerName);
-                cmd.Parameters.AddWithValue("@CustomerPhone", customerPhone);
-                cmd.Parameters.AddWithValue("@CustomerEmail", (object)email ?? DBNull.Value);
-                cmd.Parameters.AddWithValue("@RouteId", routeId);
-                cmd.Parameters.AddWithValue("@VehicleTypeId", vehicleTypeId);
-                cmd.Parameters.AddWithValue("@PickupTime", pickupTime);
-                cmd.Parameters.AddWithValue("@ReturnTime", (object)returnTime ?? DBNull.Value);
-                cmd.Parameters.AddWithValue("@TripType", tripType);
-                cmd.Parameters.AddWithValue("@PaymentType", paymentType);
-                cmd.Parameters.AddWithValue("@PaymentStatus", paymentStatus);
-                cmd.Parameters.AddWithValue("@TotalAmount", totalAmount);
-                cmd.Parameters.AddWithValue("@Note", (object)note ?? DBNull.Value);
-                cmd.Parameters.AddWithValue("@CreatedBy", "web");
-                cmd.Parameters.AddWithValue("@UpdatedBy", "web");
+                var entity = new TransferBooking
+                {
+                    BookingCode = bookingCode,
+                    CustomerName = customerName,
+                    CustomerPhone = customerPhone,
+                    CustomerEmail = email,
+                    RouteId = routeId,
+                    VehicleTypeId = vehicleTypeId,
+                    PickupTime = pickupTime,
+                    ReturnTime = returnTime,
+                    TripType = tripType,
+                    PaymentType = paymentType,
+                    PaymentStatus = paymentStatus,
+                    TotalAmount = totalAmount,
+                    Note = note,
+                    Status = 1,
+                    SortOrder = 0,
+                    CreatedAt = DateTime.UtcNow,
+                    CreatedBy = "web",
+                    UpdatedAt = DateTime.UtcNow,
+                    UpdatedBy = "web"
+                };
 
-                conn.Open();
-                cmd.ExecuteNonQuery();
+                db.TransferBookings.Add(entity);
+                db.SaveChanges();
             }
 
             ShowSuccess(string.Format("Đặt xe thành công. Mã booking: {0}. Tổng tiền: {1:N0} VND", bookingCode, totalAmount));
@@ -221,31 +216,20 @@ VALUES
 
         private PriceInfo GetRoutePrice(int routeId, int vehicleTypeId)
         {
-            using (var conn = new SqlConnection(GetConnectionString()))
-            using (var cmd = new SqlCommand(@"
-SELECT PriceOneWay, PriceRoundTrip
-FROM dbo.tgh_route_price
-WHERE RouteId = @RouteId AND VehicleTypeId = @VehicleTypeId AND Status = 1
-", conn))
+            using (var db = new TripGoHubDbContext())
             {
-                cmd.Parameters.AddWithValue("@RouteId", routeId);
-                cmd.Parameters.AddWithValue("@VehicleTypeId", vehicleTypeId);
-
-                conn.Open();
-                using (var reader = cmd.ExecuteReader())
+                var price = db.RoutePrices.FirstOrDefault(x => x.RouteId == routeId && x.VehicleTypeId == vehicleTypeId && x.Status == 1);
+                if (price == null)
                 {
-                    if (reader.Read())
-                    {
-                        return new PriceInfo
-                        {
-                            OneWay = reader.GetDecimal(0),
-                            RoundTrip = reader.GetDecimal(1)
-                        };
-                    }
+                    return null;
                 }
-            }
 
-            return null;
+                return new PriceInfo
+                {
+                    OneWay = price.PriceOneWay,
+                    RoundTrip = price.PriceRoundTrip
+                };
+            }
         }
 
         private static int ToInt(string value)
@@ -266,11 +250,6 @@ WHERE RouteId = @RouteId AND VehicleTypeId = @VehicleTypeId AND Status = 1
             MessagePanel.Visible = true;
             MessagePanel.CssClass = "msg success";
             MessageText.Text = message;
-        }
-
-        private static string GetConnectionString()
-        {
-            return ConfigurationManager.ConnectionStrings["TripGoHubDB"].ConnectionString;
         }
 
         private class PriceInfo

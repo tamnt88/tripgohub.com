@@ -12,6 +12,15 @@ namespace TripGoHub.Web.Admin
         protected global::System.Web.UI.WebControls.Label LblUser;
         protected global::System.Web.UI.WebControls.Button BtnLogout;
         protected global::System.Web.UI.HtmlControls.HtmlAnchor menuDashboard;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl menuGroupTransfer;
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor menuTransferBookings;
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor menuTransferRoutes;
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor menuTransferRoutePrices;
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor menuTransferVehicles;
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor menuTransferVehicleBrands;
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor menuTransferVehicleModels;
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor menuTransferDrivers;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl menuGroupSystem;
         protected global::System.Web.UI.HtmlControls.HtmlAnchor menuProvinces;
         protected global::System.Web.UI.HtmlControls.HtmlAnchor menuWards;
         protected global::System.Web.UI.WebControls.ContentPlaceHolder MainContent;

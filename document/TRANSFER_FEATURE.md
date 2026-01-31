@@ -51,3 +51,11 @@
 - 2026-01-31: Bổ sung loại xe và loại chuyến ở tab tìm kiếm xe di chuyển (trang chủ) (`tripdev/TripGoHub.Web/Default.aspx`).
 - 2026-01-31: Thêm autocomplete điểm đón/điểm trả và nút đảo chiều trên trang đặt xe (`tripdev/TripGoHub.Web/transfer/booking.aspx`, `tripdev/TripGoHub.Web/transfer/booking.aspx.cs`, `tripdev/TripGoHub.Web/transfer/booking.aspx.designer.cs`).
 - 2026-01-31: Thêm autocomplete điểm đón/điểm trả ở trang chủ và chuyển dữ liệu sang form đặt xe (`tripdev/TripGoHub.Web/Default.aspx`, `tripdev/TripGoHub.Web/Default.aspx.cs`, `tripdev/TripGoHub.Web/Default.aspx.designer.cs`, `tripdev/TripGoHub.Web/transfer/booking.aspx.cs`).
+- 2026-01-31: Seed thêm ~50 tuyến mẫu và giá theo tuyến (`document/tripgohub_transfer_seed.sql`).
+- 2026-01-31: Bổ sung bảng hãng xe + model xe và liên kết với xe (`document/tripgohub_transfer_schema.sql`, `document/tripgohub_transfer_seed.sql`).
+- 2026-01-31: Thêm menu admin cho module đặt xe (Booking, tuyến, giá tuyến, xe, hãng, model, tài xế) (`tripdev/TripGoHub.Web/admin/Admin.master`).
+- 2026-01-31: Menu admin nhóm theo module, có thể đóng/mở và tự active theo trang (`tripdev/TripGoHub.Web/admin/Admin.master`, `tripdev/TripGoHub.Web/admin/Admin.master.cs`, `tripdev/TripGoHub.Web/admin/assets/css/admin.css`).
+- 2026-01-31: Gom Tỉnh/Thành và Phường/Xã vào nhóm cấu hình hệ thống trong menu admin (`tripdev/TripGoHub.Web/admin/Admin.master`, `tripdev/TripGoHub.Web/admin/Admin.master.cs`).
+- 2026-01-31: Di chuyển trang admin theo module (`admin/transfer`, `admin/system`) và cập nhật link/API tương ứng.
+- 2026-01-31: Tạo CRUD quản trị hãng xe (EF) (`tripdev/TripGoHub.Web/admin/transfer/vehicle_brands.aspx`, `tripdev/TripGoHub.Web/admin/api/transfer/vehicle_brands.ashx`).
+- 2026-01-31: Chuẩn hoá truy vấn sang EF cho trang đặt xe và trang chủ (`tripdev/TripGoHub.Web/transfer/booking.aspx.cs`, `tripdev/TripGoHub.Web/Default.aspx.cs`).

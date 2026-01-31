@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Đặt xe" Language="C#" MasterPageFile="~/admin/Admin.master" AutoEventWireup="true" CodeFile="transfer_bookings.aspx.cs" Inherits="TripGoHub.Web.Admin.TransferBookings" %>
+﻿<%@ Page Title="Quản trị Booking" Language="C#" MasterPageFile="~/admin/Admin.master" AutoEventWireup="true" CodeFile="transfer_bookings.aspx.cs" Inherits="TripGoHub.Web.Admin.Transfer.TransferBookings" %>
 <asp:Content ID="TitleBlock" ContentPlaceHolderID="TitleContent" runat="server">Đặt xe</asp:Content>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <div class="d-flex align-items-center justify-content-between mb-3">
@@ -27,7 +27,7 @@
             serverSide: true,
             processing: true,
             ajax: {
-                url: '../admin/api/transfer_bookings.ashx',
+                url: '../api/transfer/transfer_bookings.ashx',
                 type: 'POST'
             },
             columns: [

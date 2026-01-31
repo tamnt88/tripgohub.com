@@ -1,10 +1,10 @@
-﻿<%@ WebHandler Language="C#" Class="TripGoHub.Web.Admin.Api.ProvincesHandler" %>
+<%@ WebHandler Language="C#" Class="TripGoHub.Web.Admin.Api.SystemConfig.ProvincesHandler" %>
 using System;
 using System.Linq;
 using System.Web;
 using System.Web.SessionState;
 
-namespace TripGoHub.Web.Admin.Api
+namespace TripGoHub.Web.Admin.Api.SystemConfig
 {
     public class ProvincesHandler : IHttpHandler, IRequiresSessionState
     {

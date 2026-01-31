@@ -1,20 +1,20 @@
-﻿<%@ Page Title="Quản trị Tỉnh" Language="C#" MasterPageFile="~/admin/Admin.master" AutoEventWireup="true" CodeFile="provinces.aspx.cs" Inherits="TripGoHub.Web.Admin.Provinces" %>
-<asp:Content ID="TitleBlock" ContentPlaceHolderID="TitleContent" runat="server">Quản trị Tỉnh</asp:Content>
+<%@ Page Title="Qu?n tr? T?nh" Language="C#" MasterPageFile="~/admin/Admin.master" AutoEventWireup="true" CodeFile="provinces.aspx.cs" Inherits="TripGoHub.Web.Admin.SystemConfig.Provinces" %>
+<asp:Content ID="TitleBlock" ContentPlaceHolderID="TitleContent" runat="server">Qu?n tr? T?nh</asp:Content>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <div class="d-flex align-items-center justify-content-between mb-3">
-        <h1 class="h4 fw-bold mb-0">Tỉnh/Thành</h1>
+        <h1 class="h4 fw-bold mb-0">T?nh/Th�nh</h1>
         <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#provinceModal">
-            <i class="fa-solid fa-plus"></i> Thêm mới
+            <i class="fa-solid fa-plus"></i> Th�m m?i
         </button>
     </div>
     <table id="tblProvinces" class="table table-striped table-bordered w-100">
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Tên</th>
+                <th>T�n</th>
                 <th>Status</th>
                 <th>SortOrder</th>
-                <th>Hành động</th>
+                <th>H�nh d?ng</th>
             </tr>
         </thead>
     </table>
@@ -23,12 +23,12 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Thêm Tỉnh/Thành</h5>
+                    <h5 class="modal-title">Th�m T?nh/Th�nh</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
                     <div class="mb-3">
-                        <label class="form-label">Tên</label>
+                        <label class="form-label">T�n</label>
                         <input type="text" class="form-control" id="ProvinceName" />
                     </div>
                     <div class="mb-3">
@@ -41,8 +41,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
-                    <button type="button" class="btn btn-warning" id="BtnSaveProvince">Lưu</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">H?y</button>
+                    <button type="button" class="btn btn-warning" id="BtnSaveProvince">Luu</button>
                 </div>
             </div>
         </div>
@@ -56,7 +56,7 @@
             serverSide: true,
             processing: true,
             ajax: {
-                url: '../admin/api/provinces.ashx',
+                url: '../api/system/provinces.ashx',
                 type: 'POST'
             },
             columns: [
@@ -77,7 +77,7 @@
 
         $('#BtnSaveProvince').on('click', function () {
             $.ajax({
-                url: '../admin/api/provinces.ashx',
+                url: '../api/system/provinces.ashx',
                 type: 'POST',
                 data: {
                     action: 'create',
@@ -92,10 +92,10 @@
         });
 
         $('#tblProvinces').on('click', 'button.delete', function () {
-            if (!confirm('Xóa mục này?')) return;
+            if (!confirm('X�a m?c n�y?')) return;
             var id = $(this).data('id');
             $.ajax({
-                url: '../admin/api/provinces.ashx',
+                url: '../api/system/provinces.ashx',
                 type: 'POST',
                 data: { action: 'delete', id: id }
             }).done(function () { table.ajax.reload(); });
@@ -103,10 +103,10 @@
 
         $('#tblProvinces').on('click', 'button.edit', function () {
             var id = $(this).data('id');
-            var name = prompt('Tên mới');
+            var name = prompt('T�n m?i');
             if (!name) return;
             $.ajax({
-                url: '../admin/api/provinces.ashx',
+                url: '../api/system/provinces.ashx',
                 type: 'POST',
                 data: { action: 'update', id: id, name: name }
             }).done(function () { table.ajax.reload(); });

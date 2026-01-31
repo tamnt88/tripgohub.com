@@ -1,10 +1,10 @@
-﻿<%@ WebHandler Language="C#" Class="TripGoHub.Web.Admin.Api.WardsHandler" %>
+<%@ WebHandler Language="C#" Class="TripGoHub.Web.Admin.Api.SystemConfig.WardsHandler" %>
 using System;
 using System.Linq;
 using System.Web;
 using System.Web.SessionState;
 
-namespace TripGoHub.Web.Admin.Api
+namespace TripGoHub.Web.Admin.Api.SystemConfig
 {
     public class WardsHandler : IHttpHandler, IRequiresSessionState
     {
@@ -21,12 +21,6 @@ namespace TripGoHub.Web.Admin.Api
             if (action == "create")
             {
                 CreateWard(context);
-                return;
-            }
-
-            if (action == "update")
-            {
-                UpdateWard(context);
                 return;
             }
 
@@ -58,21 +52,14 @@ namespace TripGoHub.Web.Admin.Api
                 var query = db.Wards.AsQueryable();
                 if (!string.IsNullOrWhiteSpace(search))
                 {
-                    query = query.Where(x => x.Name.Contains(search) || x.Province.Name.Contains(search));
+                    query = query.Where(x => x.Name.Contains(search));
                 }
 
                 var total = query.Count();
                 var data = query.OrderBy(x => x.Name)
                     .Skip(start)
                     .Take(length)
-                    .Select(x => new
-                    {
-                        x.Id,
-                        x.Name,
-                        ProvinceName = x.Province.Name,
-                        x.Status,
-                        x.SortOrder
-                    })
+                    .Select(x => new { x.Id, x.Name, ProvinceName = x.Province.Name, x.Status, x.SortOrder })
                     .ToList();
 
                 var result = new
@@ -95,9 +82,9 @@ namespace TripGoHub.Web.Admin.Api
             byte status = ToByte(context.Request["status"], 1);
             int sortOrder = ToInt(context.Request["sortOrder"], 0);
 
-            if (string.IsNullOrWhiteSpace(name) || provinceId <= 0)
+            if (string.IsNullOrWhiteSpace(name))
             {
-                WriteError(context, "Name and Province are required");
+                WriteError(context, "Name is required");
                 return;
             }
 
@@ -105,8 +92,8 @@ namespace TripGoHub.Web.Admin.Api
             {
                 var entity = new Ward
                 {
-                    Name = name,
                     ProvinceId = provinceId,
+                    Name = name,
                     Status = status,
                     SortOrder = sortOrder,
                     CreatedAt = DateTime.UtcNow,
@@ -115,33 +102,6 @@ namespace TripGoHub.Web.Admin.Api
                     UpdatedBy = (context.Session["AdminUsername"] ?? "admin").ToString()
                 };
                 db.Wards.Add(entity);
-                db.SaveChanges();
-            }
-
-            WriteOk(context);
-        }
-
-        private void UpdateWard(HttpContext context)
-        {
-            int id = ToInt(context.Request["id"]);
-            var name = (context.Request["name"] ?? string.Empty).Trim();
-
-            using (var db = new TripGoHubDbContext())
-            {
-                var entity = db.Wards.FirstOrDefault(x => x.Id == id);
-                if (entity == null)
-                {
-                    WriteError(context, "Not found");
-                    return;
-                }
-
-                if (!string.IsNullOrWhiteSpace(name))
-                {
-                    entity.Name = name;
-                }
-
-                entity.UpdatedAt = DateTime.UtcNow;
-                entity.UpdatedBy = (context.Session["AdminUsername"] ?? "admin").ToString();
                 db.SaveChanges();
             }
 

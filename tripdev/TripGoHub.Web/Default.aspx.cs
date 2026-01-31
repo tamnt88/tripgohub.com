@@ -1,6 +1,5 @@
 using System;
-using System.Configuration;
-using System.Data.SqlClient;
+using System.Linq;
 using System.Web.Script.Serialization;
 
 namespace TripGoHub.Web
@@ -14,27 +13,22 @@ namespace TripGoHub.Web
 
         private void BindRouteJson()
         {
-            var list = new System.Collections.Generic.List<RouteItem>();
-            using (var conn = new SqlConnection(ConfigurationManager.ConnectionStrings["TripGoHubDB"].ConnectionString))
-            using (var cmd = new SqlCommand("SELECT RouteId, FromName, ToName FROM dbo.tgh_route WHERE Status = 1 ORDER BY SortOrder, RouteId", conn))
+            using (var db = new TripGoHubDbContext())
             {
-                conn.Open();
-                using (var reader = cmd.ExecuteReader())
-                {
-                    while (reader.Read())
+                var list = db.Routes.Where(x => x.Status == 1)
+                    .OrderBy(x => x.SortOrder)
+                    .ThenBy(x => x.RouteId)
+                    .Select(x => new RouteItem
                     {
-                        list.Add(new RouteItem
-                        {
-                            RouteId = reader.GetInt32(0),
-                            FromName = reader.GetString(1),
-                            ToName = reader.GetString(2)
-                        });
-                    }
-                }
-            }
+                        RouteId = x.RouteId,
+                        FromName = x.FromName,
+                        ToName = x.ToName
+                    })
+                    .ToList();
 
-            var serializer = new JavaScriptSerializer();
-            RouteDataJsonHome.Text = serializer.Serialize(list);
+                var serializer = new JavaScriptSerializer();
+                RouteDataJsonHome.Text = serializer.Serialize(list);
+            }
         }
 
         private class RouteItem

@@ -4,6 +4,7 @@
 <head runat="server">
     <meta charset="utf-8" />
     <title><asp:ContentPlaceHolder ID="TitleContent" runat="server" /></title>
+    <link rel="icon" type="image/png" href="<%: ResolveUrl("~/fav.png") %>" />
     <link rel="stylesheet" href="<%: ResolveUrl("~/admin/assets/vendor/bootstrap/css/bootstrap.min.css") %>" />
     <link rel="stylesheet" href="<%: ResolveUrl("~/admin/assets/vendor/fontawesome/css/all.min.css") %>" />
     <link rel="stylesheet" href="<%: ResolveUrl("~/admin/assets/vendor/datatables/css/jquery.dataTables.min.css") %>" />
@@ -13,43 +14,22 @@
     <form id="form1" runat="server">
         <header class="admin-top py-3">
             <div class="container-fluid d-flex align-items-center justify-content-between">
-                <div class="brand fw-bold">TripGoHub Admin</div>
+                <div class="brand fw-bold">
+                    <a href="default.aspx" class="brand-link" aria-label="TripGoHub Admin">
+                        <img src="<%: ResolveUrl("~/logo.png") %>" alt="TripGoHub" class="brand-logo" />
+                    </a>
+                </div>
                 <div class="admin-user d-flex align-items-center gap-2">
                     <i class="fa-solid fa-user"></i>
                     <asp:Label runat="server" ID="LblUser" />
-                    <asp:Button runat="server" ID="BtnLogout" Text="Đăng xuất" CssClass="btn btn-outline-secondary btn-sm" OnClick="BtnLogout_Click" />
+                    <asp:Button runat="server" ID="BtnLogout" Text="Ðăng xuất" CssClass="btn btn-outline-secondary btn-sm" OnClick="BtnLogout_Click" />
                 </div>
             </div>
         </header>
 
         <main class="admin-shell">
             <aside class="admin-menu">
-                <a href="default.aspx" class="menu-item" id="menuDashboard" runat="server"><i class="fa-solid fa-gauge"></i> Dashboard</a>
-                <div class="menu-group" id="menuGroupTransfer" runat="server">
-                    <button type="button" class="menu-toggle" data-target="menuTransferList">
-                        <span><i class="fa-solid fa-car"></i> Đặt xe</span>
-                        <i class="fa-solid fa-chevron-down"></i>
-                    </button>
-                    <div class="menu-list" id="menuTransferList">
-                        <a href="transfer/transfer_bookings.aspx" class="menu-item" id="menuTransferBookings" runat="server">Booking</a>
-                        <a href="transfer/transfer_routes.aspx" class="menu-item" id="menuTransferRoutes" runat="server">Tuyến</a>
-                        <a href="transfer/transfer_route_prices.aspx" class="menu-item" id="menuTransferRoutePrices" runat="server">Giá tuyến</a>
-                        <a href="transfer/transfer_vehicles.aspx" class="menu-item" id="menuTransferVehicles" runat="server">Xe</a>
-                        <a href="transfer/vehicle_brands.aspx" class="menu-item" id="menuTransferVehicleBrands" runat="server">Hãng xe</a>
-                        <a href="transfer/vehicle_models.aspx" class="menu-item" id="menuTransferVehicleModels" runat="server">Model xe</a>
-                        <a href="transfer/transfer_drivers.aspx" class="menu-item" id="menuTransferDrivers" runat="server">Tài xế</a>
-                    </div>
-                </div>
-                <div class="menu-group" id="menuGroupSystem" runat="server">
-                    <button type="button" class="menu-toggle" data-target="menuSystemList">
-                        <span><i class="fa-solid fa-gear"></i> Cấu hình hệ thống</span>
-                        <i class="fa-solid fa-chevron-down"></i>
-                    </button>
-                    <div class="menu-list" id="menuSystemList">
-                        <a href="system/provinces.aspx" class="menu-item" id="menuProvinces" runat="server">Tỉnh/Thành</a>
-                        <a href="system/wards.aspx" class="menu-item" id="menuWards" runat="server">Phường/Xã</a>
-                    </div>
-                </div>
+                <%= GetAdminMenuHtml() %>
             </aside>
             <section class="admin-content">
                 <asp:ContentPlaceHolder ID="MainContent" runat="server" />
@@ -60,17 +40,7 @@
     <script src="<%: ResolveUrl("~/admin/assets/vendor/jquery/jquery.min.js") %>"></script>
     <script src="<%: ResolveUrl("~/admin/assets/vendor/bootstrap/js/bootstrap.bundle.min.js") %>"></script>
     <script src="<%: ResolveUrl("~/admin/assets/vendor/datatables/js/jquery.dataTables.min.js") %>"></script>
-    <script>
-        $(function () {
-            $('.menu-toggle').on('click', function () {
-                var targetId = $(this).data('target');
-                var group = $(this).closest('.menu-group');
-                var list = $('#' + targetId);
-                group.toggleClass('is-open');
-                list.slideToggle(120);
-            });
-        });
-    </script>
+    <script src="<%: ResolveUrl("~/admin/assets/js/admin.js") %>"></script>
     <asp:ContentPlaceHolder ID="Scripts" runat="server" />
 </body>
 </html>

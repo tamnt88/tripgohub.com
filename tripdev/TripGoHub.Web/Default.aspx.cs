@@ -13,18 +13,31 @@ namespace TripGoHub.Web
 
         private void BindRouteJson()
         {
+            var lang = LangHelper.GetCurrentLang(Request);
+
             using (var db = new TripGoHubDbContext())
             {
-                var list = db.Routes.Where(x => x.Status == 1)
+                var routes = db.Routes.Where(x => x.Status == 1)
                     .OrderBy(x => x.SortOrder)
                     .ThenBy(x => x.RouteId)
-                    .Select(x => new RouteItem
+                    .ToList();
+
+                var routeIds = routes.Select(x => x.RouteId).ToList();
+                var i18nMap = db.RouteLang.Where(x => routeIds.Contains(x.RouteId) && x.Lang == lang)
+                    .ToList()
+                    .GroupBy(x => x.RouteId)
+                    .ToDictionary(x => x.Key, x => x.First());
+
+                var list = routes.Select(x =>
+                {
+                    var name = i18nMap.ContainsKey(x.RouteId) ? i18nMap[x.RouteId] : null;
+                    return new RouteItem
                     {
                         RouteId = x.RouteId,
-                        FromName = x.FromName,
-                        ToName = x.ToName
-                    })
-                    .ToList();
+                        FromName = name != null ? name.FromName : x.FromName,
+                        ToName = name != null ? name.ToName : x.ToName
+                    };
+                }).ToList();
 
                 var serializer = new JavaScriptSerializer();
                 RouteDataJsonHome.Text = serializer.Serialize(list);
@@ -39,3 +52,4 @@ namespace TripGoHub.Web
         }
     }
 }
+

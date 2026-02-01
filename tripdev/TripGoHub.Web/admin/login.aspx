@@ -4,6 +4,7 @@
 <head runat="server">
     <meta charset="utf-8" />
     <title>Admin Login - TripGoHub</title>
+    <link rel="icon" type="image/png" href="<%: ResolveUrl("~/fav.png") %>" />
     <link rel="stylesheet" href="<%: ResolveUrl("~/admin/assets/vendor/bootstrap/css/bootstrap.min.css") %>" />
     <link rel="stylesheet" href="<%: ResolveUrl("~/admin/assets/vendor/fontawesome/css/all.min.css") %>" />
     <link rel="stylesheet" href="<%: ResolveUrl("~/admin/assets/css/admin.css") %>" />
@@ -12,6 +13,9 @@
     <form id="form1" runat="server">
         <main class="admin-login">
             <div class="login-card">
+                <div class="login-brand">
+                    <img src="<%: ResolveUrl("~/logo.png") %>" alt="TripGoHub" class="brand-logo" />
+                </div>
                 <h1 class="h4 fw-bold mb-3">Đăng nhập quản trị</h1>
                 <asp:Label runat="server" ID="LblError" CssClass="error" />
                 <div class="mb-3">

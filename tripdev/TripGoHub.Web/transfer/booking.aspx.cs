@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Web.Script.Serialization;
 
@@ -19,15 +19,32 @@ namespace TripGoHub.Web.Transfer
 
         private void BindRoutes()
         {
+            var lang = LangHelper.GetCurrentLang(Request);
+
             using (var db = new TripGoHubDbContext())
             {
                 var routes = db.Routes.Where(x => x.Status == 1)
                     .OrderBy(x => x.SortOrder)
                     .ThenBy(x => x.RouteId)
-                    .Select(x => new { x.RouteId, RouteName = x.FromName + " - " + x.ToName })
                     .ToList();
 
-                RouteId.DataSource = routes;
+                var routeIds = routes.Select(x => x.RouteId).ToList();
+                var i18nMap = db.RouteLang.Where(x => routeIds.Contains(x.RouteId) && x.Lang == lang)
+                    .ToList()
+                    .GroupBy(x => x.RouteId)
+                    .ToDictionary(x => x.Key, x => x.First());
+
+                var items = routes.Select(x =>
+                {
+                    var name = i18nMap.ContainsKey(x.RouteId) ? i18nMap[x.RouteId] : null;
+                    return new
+                    {
+                        x.RouteId,
+                        RouteName = (name != null ? name.FromName : x.FromName) + " - " + (name != null ? name.ToName : x.ToName)
+                    };
+                }).ToList();
+
+                RouteId.DataSource = items;
                 RouteId.DataTextField = "RouteName";
                 RouteId.DataValueField = "RouteId";
                 RouteId.DataBind();
@@ -36,18 +53,31 @@ namespace TripGoHub.Web.Transfer
 
         private void BindRouteJson()
         {
+            var lang = LangHelper.GetCurrentLang(Request);
+
             using (var db = new TripGoHubDbContext())
             {
-                var list = db.Routes.Where(x => x.Status == 1)
+                var routes = db.Routes.Where(x => x.Status == 1)
                     .OrderBy(x => x.SortOrder)
                     .ThenBy(x => x.RouteId)
-                    .Select(x => new RouteItem
+                    .ToList();
+
+                var routeIds = routes.Select(x => x.RouteId).ToList();
+                var i18nMap = db.RouteLang.Where(x => routeIds.Contains(x.RouteId) && x.Lang == lang)
+                    .ToList()
+                    .GroupBy(x => x.RouteId)
+                    .ToDictionary(x => x.Key, x => x.First());
+
+                var list = routes.Select(x =>
+                {
+                    var name = i18nMap.ContainsKey(x.RouteId) ? i18nMap[x.RouteId] : null;
+                    return new RouteItem
                     {
                         RouteId = x.RouteId,
-                        FromName = x.FromName,
-                        ToName = x.ToName
-                    })
-                    .ToList();
+                        FromName = name != null ? name.FromName : x.FromName,
+                        ToName = name != null ? name.ToName : x.ToName
+                    };
+                }).ToList();
 
                 var serializer = new JavaScriptSerializer();
                 RouteDataJson.Text = serializer.Serialize(list);
@@ -56,15 +86,28 @@ namespace TripGoHub.Web.Transfer
 
         private void BindVehicleTypes()
         {
+            var lang = LangHelper.GetCurrentLang(Request);
+
             using (var db = new TripGoHubDbContext())
             {
                 var types = db.VehicleTypes.Where(x => x.Status == 1)
                     .OrderBy(x => x.SortOrder)
                     .ThenBy(x => x.VehicleTypeId)
-                    .Select(x => new { x.VehicleTypeId, x.Name })
                     .ToList();
 
-                VehicleTypeId.DataSource = types;
+                var typeIds = types.Select(x => x.VehicleTypeId).ToList();
+                var i18nMap = db.VehicleTypeLang.Where(x => typeIds.Contains(x.VehicleTypeId) && x.Lang == lang)
+                    .ToList()
+                    .GroupBy(x => x.VehicleTypeId)
+                    .ToDictionary(x => x.Key, x => x.First());
+
+                var items = types.Select(x => new
+                {
+                    x.VehicleTypeId,
+                    Name = i18nMap.ContainsKey(x.VehicleTypeId) ? i18nMap[x.VehicleTypeId].Name : x.Name
+                }).ToList();
+
+                VehicleTypeId.DataSource = items;
                 VehicleTypeId.DataTextField = "Name";
                 VehicleTypeId.DataValueField = "VehicleTypeId";
                 VehicleTypeId.DataBind();
@@ -121,8 +164,19 @@ namespace TripGoHub.Web.Transfer
 
         private int FindRouteIdByName(string fromName, string toName)
         {
+            var lang = LangHelper.GetCurrentLang(Request);
+
             using (var db = new TripGoHubDbContext())
             {
+                var routeId = db.RouteLang.Where(x => x.Lang == lang && x.FromName == fromName && x.ToName == toName && x.Status == 1)
+                    .Select(x => x.RouteId)
+                    .FirstOrDefault();
+
+                if (routeId > 0)
+                {
+                    return routeId;
+                }
+
                 return db.Routes.Where(x => x.FromName == fromName && x.ToName == toName && x.Status == 1)
                     .Select(x => x.RouteId)
                     .FirstOrDefault();
@@ -138,14 +192,14 @@ namespace TripGoHub.Web.Transfer
 
             if (string.IsNullOrWhiteSpace(customerName) || string.IsNullOrWhiteSpace(customerPhone))
             {
-                ShowError("Vui lòng nhập họ tên và số điện thoại.");
+                ShowError("Vui l�ng nh?p h? t�n v� s? di?n tho?i.");
                 return;
             }
 
             DateTime pickupTime;
             if (!DateTime.TryParse(PickupTime.Text, out pickupTime))
             {
-                ShowError("Vui lòng chọn thời gian đi hợp lệ.");
+                ShowError("Vui l�ng ch?n th?i gian di h?p l?.");
                 return;
             }
 
@@ -156,7 +210,7 @@ namespace TripGoHub.Web.Transfer
                 DateTime parsedReturn;
                 if (!DateTime.TryParse(ReturnTime.Text, out parsedReturn))
                 {
-                    ShowError("Vui lòng chọn thời gian về cho chuyến khứ hồi.");
+                    ShowError("Vui l�ng ch?n th?i gian v? cho chuy?n kh? h?i.");
                     return;
                 }
                 returnTime = parsedReturn;
@@ -168,7 +222,7 @@ namespace TripGoHub.Web.Transfer
 
             if (priceInfo == null)
             {
-                ShowError("Không tìm thấy giá cho tuyến và loại xe đã chọn.");
+                ShowError("Kh�ng t�m th?y gi� cho tuy?n v� lo?i xe d� ch?n.");
                 return;
             }
 
@@ -211,7 +265,7 @@ namespace TripGoHub.Web.Transfer
                 db.SaveChanges();
             }
 
-            ShowSuccess(string.Format("Đặt xe thành công. Mã booking: {0}. Tổng tiền: {1:N0} VND", bookingCode, totalAmount));
+            ShowSuccess(string.Format("�?t xe th�nh c�ng. M� booking: {0}. T?ng ti?n: {1:N0} VND", bookingCode, totalAmount));
         }
 
         private PriceInfo GetRoutePrice(int routeId, int vehicleTypeId)
@@ -266,3 +320,4 @@ namespace TripGoHub.Web.Transfer
         }
     }
 }
+

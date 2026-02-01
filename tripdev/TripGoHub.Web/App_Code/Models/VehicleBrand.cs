@@ -1,10 +1,10 @@
-﻿using System;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TripGoHub.Web
 {
-    [Table("tgh_vehicle_brand")]
+    [Table("trf_vehicle_brand")]
     public class VehicleBrand
     {
         [Key]
@@ -24,13 +24,11 @@ namespace TripGoHub.Web
         [StringLength(200)]
         public string LogoAlt { get; set; }
 
-        [StringLength(500)]
         public string Summary { get; set; }
 
         [StringLength(200)]
         public string SeoTitle { get; set; }
 
-        [StringLength(500)]
         public string SeoDescription { get; set; }
 
         [StringLength(500)]

@@ -1,123 +1,59 @@
-<%@ Page Title="Qu?n tr? Phu?ng" Language="C#" MasterPageFile="~/admin/Admin.master" AutoEventWireup="true" CodeFile="wards.aspx.cs" Inherits="TripGoHub.Web.Admin.SystemConfig.Wards" %>
-<asp:Content ID="TitleBlock" ContentPlaceHolderID="TitleContent" runat="server">Qu?n tr? Phu?ng</asp:Content>
+﻿<%@ Page Title="Quản trị Phường/Xã" Language="C#" MasterPageFile="~/admin/Admin.master" AutoEventWireup="true" CodeFile="wards.aspx.cs" Inherits="TripGoHub.Web.Admin.SystemConfig.Wards" %>
+<asp:Content ID="ContentTitle" ContentPlaceHolderID="TitleContent" runat="server">Quản trị Phường/Xã</asp:Content>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-    <div class="d-flex align-items-center justify-content-between mb-3">
-        <h1 class="h4 fw-bold mb-0">Phu?ng/X�</h1>
-        <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#wardModal">
-            <i class="fa-solid fa-plus"></i> Th�m m?i
-        </button>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3 class="mb-0">Quản lý phường/xã</h3>
+        <a href="ward_edit.aspx" class="btn btn-warning"><i class="fa-solid fa-plus"></i> Thêm phường/xã</a>
     </div>
-    <table id="tblWards" class="table table-striped table-bordered w-100">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>T�n</th>
-                <th>T?nh</th>
-                <th>Status</th>
-                <th>SortOrder</th>
-                <th>H�nh d?ng</th>
-            </tr>
-        </thead>
-    </table>
 
-    <div class="modal fade" id="wardModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Th�m Phu?ng/X�</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <label class="form-label">T?nh</label>
-                        <select class="form-control" id="WardProvince"></select>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">T�n</label>
-                        <input type="text" class="form-control" id="WardName" />
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Status</label>
-                        <input type="number" class="form-control" id="WardStatus" value="1" />
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">SortOrder</label>
-                        <input type="number" class="form-control" id="WardSort" value="0" />
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">H?y</button>
-                    <button type="button" class="btn btn-warning" id="BtnSaveWard">Luu</button>
-                </div>
+    <div class="admin-filter mb-3">
+        <div class="row g-2 align-items-end">
+            <div class="col-12 col-md-3">
+                <label class="form-label" for="WardCountry">Quốc gia</label>
+                <select class="form-select" id="WardCountry"></select>
+            </div>
+            <div class="col-12 col-md-3">
+                <label class="form-label" for="WardProvince">Tỉnh/Thành</label>
+                <select class="form-select" id="WardProvince"></select>
+            </div>
+            <div class="col-12 col-md-2">
+                <label class="form-label" for="WardStatus">Trạng thái</label>
+                <select class="form-select" id="WardStatus">
+                    <option value="">Tất cả</option>
+                    <option value="1">Đang hiển thị</option>
+                    <option value="0">Đang ẩn</option>
+                </select>
+            </div>
+            <div class="col-12 col-md-3">
+                <label class="form-label" for="WardKeyword">Từ khóa</label>
+                <input type="text" class="form-control" id="WardKeyword" placeholder="Nhập tên phường/xã" />
+            </div>
+            <div class="col-12 col-md-2 d-flex gap-2">
+                <button type="button" id="BtnWardFilter" class="btn btn-primary"><i class="fa-solid fa-filter"></i> Lọc</button>
+                <button type="button" id="BtnWardReset" class="btn btn-outline-secondary"><i class="fa-solid fa-rotate"></i> Làm mới</button>
             </div>
         </div>
     </div>
+
+    <div id="adminLoading" class="admin-loading" aria-hidden="true">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Đang tải...</span>
+        </div>
+    </div>
+
+    <table id="tblWards" class="table table-striped table-bordered w-100">
+        <thead>
+            <tr>
+                <th>Tên phường/xã</th>
+                <th>Tỉnh/Thành</th>
+                <th>Trạng thái</th>
+                <th>Thứ tự</th>
+                <th>Thao tác</th>
+            </tr>
+        </thead>
+    </table>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="Scripts" runat="server">
-<script>
-    $(function () {
-        function loadProvinces() {
-            $.getJSON('../api/system/provinces.ashx?action=list', function (data) {
-                var html = '';
-                data.forEach(function (item) {
-                    html += '<option value="' + item.Id + '">' + item.Name + '</option>';
-                });
-                $('#WardProvince').html(html);
-            });
-        }
-
-        var table = $('#tblWards').DataTable({
-            serverSide: true,
-            processing: true,
-            ajax: {
-                url: '../api/system/wards.ashx',
-                type: 'POST'
-            },
-            columns: [
-                { data: 'Id' },
-                { data: 'Name' },
-                { data: 'ProvinceName' },
-                { data: 'Status' },
-                { data: 'SortOrder' },
-                {
-                    data: null,
-                    orderable: false,
-                    render: function (data) {
-                        return '<button class="btn btn-sm btn-outline-danger delete" data-id="' + data.Id + '"><i class="fa-regular fa-trash-can"></i></button>';
-                    }
-                }
-            ]
-        });
-
-        loadProvinces();
-
-        $('#BtnSaveWard').on('click', function () {
-            $.ajax({
-                url: '../api/system/wards.ashx',
-                type: 'POST',
-                data: {
-                    action: 'create',
-                    provinceId: $('#WardProvince').val(),
-                    name: $('#WardName').val(),
-                    status: $('#WardStatus').val(),
-                    sortOrder: $('#WardSort').val()
-                }
-            }).done(function () {
-                $('#wardModal').modal('hide');
-                table.ajax.reload();
-            });
-        });
-
-        $('#tblWards').on('click', 'button.delete', function () {
-            if (!confirm('X�a m?c n�y?')) return;
-            var id = $(this).data('id');
-            $.ajax({
-                url: '../api/system/wards.ashx',
-                type: 'POST',
-                data: { action: 'delete', id: id }
-            }).done(function () { table.ajax.reload(); });
-        });
-    });
-</script>
+    <script src="../assets/js/wards.js"></script>
 </asp:Content>

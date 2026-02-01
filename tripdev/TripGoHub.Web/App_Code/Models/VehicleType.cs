@@ -1,10 +1,10 @@
-﻿using System;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TripGoHub.Web
 {
-    [Table("tgh_vehicle_type")]
+    [Table("trf_vehicle_type")]
     public class VehicleType
     {
         [Key]
@@ -16,7 +16,6 @@ namespace TripGoHub.Web
 
         public int Capacity { get; set; }
 
-        [StringLength(500)]
         public string Description { get; set; }
 
         public byte Status { get; set; }

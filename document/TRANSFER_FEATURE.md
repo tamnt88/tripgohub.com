@@ -13,14 +13,15 @@
 - Chọn hình thức: thanh toán online hoặc giữ chỗ.
 - Tạo booking và chờ admin xác nhận/gán xe.
 
-## Dữ liệu chính (đề xuất bảng)
-- `tgh_vehicle_type`: loại xe.
-- `tgh_vehicle`: thông tin xe.
-- `tgh_driver`: tài xế.
-- `tgh_route`: tuyến cố định.
-- `tgh_route_price`: giá theo tuyến và loại xe (giá 1 chiều/khứ hồi).
-- `tgh_transfer_booking`: đơn đặt xe.
-- `tgh_transfer_booking_assign`: gán xe + tài xế cho booking.
+## Dữ liệu chính (bảng hiện tại)
+- `trf_vehicle_type`: loại xe.
+- `trf_vehicle`: thông tin xe.
+- `trf_driver`: tài xế.
+- `trf_route`: tuyến cố định.
+- `trf_route_lang`: tên tuyến theo ngôn ngữ.
+- `trf_route_price`: giá theo tuyến và loại xe (giá 1 chiều/khứ hồi).
+- `trf_transfer_booking`: đơn đặt xe.
+- `trf_transfer_booking_assign`: gán xe + tài xế cho booking.
 
 ## Trạng thái gợi ý
 - Booking: Pending / Confirmed / Cancelled / Completed.
@@ -42,20 +43,9 @@
 - Script CSDL khởi tạo: `document/tripgohub_transfer_schema.sql`
 - Script seed dữ liệu: `document/tripgohub_transfer_seed.sql`
 
-## Nhật ký thay đổi
-- 2026-01-31: Tạo script CSDL cho module transfer (`tripgohub_transfer_schema.sql`).
-- 2026-01-31: Thêm script seed dữ liệu mẫu cho transfer (`tripgohub_transfer_seed.sql`).
-- 2026-01-31: Tạo trang đặt xe Web Forms (`tripdev/TripGoHub.Web/transfer/booking.aspx`, `tripdev/TripGoHub.Web/transfer/booking.aspx.cs`).
-- 2026-01-31: Tạo trang admin danh sách booking + handler server-side (`tripdev/TripGoHub.Web/admin/transfer_bookings.aspx`, `tripdev/TripGoHub.Web/admin/transfer_bookings.aspx.cs`, `tripdev/TripGoHub.Web/admin/api/transfer_bookings.ashx`).
-- 2026-01-31: Tạo masterpage public (`tripdev/TripGoHub.Web/Site.master`, `tripdev/TripGoHub.Web/Site.master.cs`, `tripdev/TripGoHub.Web/Site.master.designer.cs`) và áp dụng cho `Default.aspx`, `transfer/booking.aspx`.
-- 2026-01-31: Bổ sung loại xe và loại chuyến ở tab tìm kiếm xe di chuyển (trang chủ) (`tripdev/TripGoHub.Web/Default.aspx`).
-- 2026-01-31: Thêm autocomplete điểm đón/điểm trả và nút đảo chiều trên trang đặt xe (`tripdev/TripGoHub.Web/transfer/booking.aspx`, `tripdev/TripGoHub.Web/transfer/booking.aspx.cs`, `tripdev/TripGoHub.Web/transfer/booking.aspx.designer.cs`).
-- 2026-01-31: Thêm autocomplete điểm đón/điểm trả ở trang chủ và chuyển dữ liệu sang form đặt xe (`tripdev/TripGoHub.Web/Default.aspx`, `tripdev/TripGoHub.Web/Default.aspx.cs`, `tripdev/TripGoHub.Web/Default.aspx.designer.cs`, `tripdev/TripGoHub.Web/transfer/booking.aspx.cs`).
-- 2026-01-31: Seed thêm ~50 tuyến mẫu và giá theo tuyến (`document/tripgohub_transfer_seed.sql`).
-- 2026-01-31: Bổ sung bảng hãng xe + model xe và liên kết với xe (`document/tripgohub_transfer_schema.sql`, `document/tripgohub_transfer_seed.sql`).
-- 2026-01-31: Thêm menu admin cho module đặt xe (Booking, tuyến, giá tuyến, xe, hãng, model, tài xế) (`tripdev/TripGoHub.Web/admin/Admin.master`).
-- 2026-01-31: Menu admin nhóm theo module, có thể đóng/mở và tự active theo trang (`tripdev/TripGoHub.Web/admin/Admin.master`, `tripdev/TripGoHub.Web/admin/Admin.master.cs`, `tripdev/TripGoHub.Web/admin/assets/css/admin.css`).
-- 2026-01-31: Gom Tỉnh/Thành và Phường/Xã vào nhóm cấu hình hệ thống trong menu admin (`tripdev/TripGoHub.Web/admin/Admin.master`, `tripdev/TripGoHub.Web/admin/Admin.master.cs`).
-- 2026-01-31: Di chuyển trang admin theo module (`admin/transfer`, `admin/system`) và cập nhật link/API tương ứng.
-- 2026-01-31: Tạo CRUD quản trị hãng xe (EF) (`tripdev/TripGoHub.Web/admin/transfer/vehicle_brands.aspx`, `tripdev/TripGoHub.Web/admin/api/transfer/vehicle_brands.ashx`).
-- 2026-01-31: Chuẩn hoá truy vấn sang EF cho trang đặt xe và trang chủ (`tripdev/TripGoHub.Web/transfer/booking.aspx.cs`, `tripdev/TripGoHub.Web/Default.aspx.cs`).
+## Nhật ký thay đổi (tóm tắt mới)
+- 2026-01-31: Chuẩn hóa bảng module transfer sang prefix `trf_`.
+- 2026-01-31: Bổ sung bảng ngôn ngữ cho tuyến và loại xe (`trf_route_lang`, `trf_vehicle_type_lang`).
+- 2026-01-31: Cập nhật EF và code public/admin theo tên bảng mới.
+- 2026-01-31: Admin: danh sách booking dùng EF, mapping `Route` + `VehicleType`.
+- 2026-02-01: Áp dụng rewrite URL public và giữ admin truy cập `.aspx` trực tiếp.

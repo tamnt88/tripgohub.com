@@ -1,4 +1,4 @@
-<%@ WebHandler Language="C#" Class="TripGoHub.Web.Admin.Api.SystemConfig.ProvincesHandler" %>
+ï»¿<%@ WebHandler Language="C#" Class="TripGoHub.Web.Admin.Api.SystemConfig.ProvincesHandler" %>
 using System;
 using System.Linq;
 using System.Web;
@@ -8,6 +8,9 @@ namespace TripGoHub.Web.Admin.Api.SystemConfig
 {
     public class ProvincesHandler : IHttpHandler, IRequiresSessionState
     {
+        private const string DefaultLang = "vi";
+        private const string LevelProvince = "Province";
+
         public void ProcessRequest(HttpContext context)
         {
             if (!IsAuthorized(context))
@@ -21,6 +24,12 @@ namespace TripGoHub.Web.Admin.Api.SystemConfig
             if (action == "list")
             {
                 WriteProvinceList(context);
+                return;
+            }
+
+            if (action == "get")
+            {
+                WriteProvince(context);
                 return;
             }
 
@@ -42,6 +51,12 @@ namespace TripGoHub.Web.Admin.Api.SystemConfig
                 return;
             }
 
+            if (action == "translate")
+            {
+                TranslateProvince(context);
+                return;
+            }
+
             WriteDataTable(context);
         }
 
@@ -56,8 +71,12 @@ namespace TripGoHub.Web.Admin.Api.SystemConfig
         {
             using (var db = new TripGoHubDbContext())
             {
-                var list = db.Provinces.OrderBy(x => x.Name)
-                    .Select(x => new { x.Id, x.Name })
+                int countryId = GetCountryId(db, context);
+                var list = (from unit in db.AdminUnits
+                            join lang in db.AdminUnitLang on unit.Id equals lang.AdminUnitId
+                            where unit.LevelType == LevelProvince && lang.Lang == DefaultLang
+                            orderby lang.Name
+                            select new { Id = unit.Id, Name = lang.Name })
                     .ToList();
 
                 context.Response.ContentType = "application/json";
@@ -65,33 +84,84 @@ namespace TripGoHub.Web.Admin.Api.SystemConfig
             }
         }
 
-        private void WriteDataTable(HttpContext context)
+                private void WriteProvince(HttpContext context)
+        {
+            int id = ToInt(context.Request["id"]);
+            using (var db = new TripGoHubDbContext())
+            {
+                var data = (from unit in db.AdminUnits
+                            join lang in db.AdminUnitLang on unit.Id equals lang.AdminUnitId
+                            where unit.Id == id && unit.LevelType == LevelProvince && lang.Lang == DefaultLang
+                            select new { Id = unit.Id, unit.CountryId, Name = lang.Name, unit.Status, unit.SortOrder })
+                    .FirstOrDefault();
+
+                if (data == null)
+                {
+                    WriteError(context, "Kh?ng t?m th?y t?nh/th?nh");
+                    return;
+                }
+
+                var en = db.AdminUnitLang.FirstOrDefault(x => x.AdminUnitId == id && x.Lang == "en");
+
+                var result = new
+                {
+                    data.Id,
+                    data.CountryId,
+                    NameVi = data.Name,
+                    NameEn = en != null ? en.Name : string.Empty,
+                    data.Status,
+                    data.SortOrder
+                };
+
+                context.Response.ContentType = "application/json";
+                context.Response.Write(Newtonsoft.Json.JsonConvert.SerializeObject(new { ok = true, data = result }));
+            }
+        }
+
+private void WriteDataTable(HttpContext context)
         {
             int draw = ToInt(context.Request["draw"]);
             int start = ToInt(context.Request["start"]);
             int length = ToInt(context.Request["length"], 10);
-            string search = context.Request["search[value]"] ?? string.Empty;
+            string keyword = context.Request["keyword"] ?? string.Empty;
+            string statusValue = context.Request["status"] ?? string.Empty;
 
             using (var db = new TripGoHubDbContext())
             {
-                var query = db.Provinces.AsQueryable();
-                if (!string.IsNullOrWhiteSpace(search))
+                int countryId = GetCountryId(db, context);
+                var query = from unit in db.AdminUnits
+                            join lang in db.AdminUnitLang on unit.Id equals lang.AdminUnitId
+                            where unit.LevelType == LevelProvince && lang.Lang == DefaultLang
+                            select new { unit, lang };
+
+                var totalAll = query.Count();
+
+                if (!string.IsNullOrWhiteSpace(keyword))
                 {
-                    query = query.Where(x => x.Name.Contains(search));
+                    query = query.Where(x => x.lang.Name.Contains(keyword));
                 }
 
-                var total = query.Count();
-                var data = query.OrderBy(x => x.Name)
+                if (!string.IsNullOrWhiteSpace(statusValue))
+                {
+                    byte statusFilter;
+                    if (byte.TryParse(statusValue, out statusFilter))
+                    {
+                        query = query.Where(x => x.unit.Status == statusFilter);
+                    }
+                }
+
+                var totalFiltered = query.Count();
+                var data = query.OrderBy(x => x.lang.Name)
                     .Skip(start)
                     .Take(length)
-                    .Select(x => new { x.Id, x.Name, x.Status, x.SortOrder })
+                    .Select(x => new { Id = x.unit.Id, Name = x.lang.Name, x.unit.Status, x.unit.SortOrder })
                     .ToList();
 
                 var result = new
                 {
                     draw = draw,
-                    recordsTotal = total,
-                    recordsFiltered = total,
+                    recordsTotal = totalAll,
+                    recordsFiltered = totalFiltered,
                     data = data
                 };
 
@@ -102,21 +172,32 @@ namespace TripGoHub.Web.Admin.Api.SystemConfig
 
         private void CreateProvince(HttpContext context)
         {
-            var name = (context.Request["name"] ?? string.Empty).Trim();
+            int countryId = ToInt(context.Request["countryId"]);
+            var nameVi = (context.Request["nameVi"] ?? string.Empty).Trim();
+            var nameEn = (context.Request["nameEn"] ?? string.Empty).Trim();
             byte status = ToByte(context.Request["status"], 1);
             int sortOrder = ToInt(context.Request["sortOrder"], 0);
 
-            if (string.IsNullOrWhiteSpace(name))
+            if (countryId <= 0)
             {
-                WriteError(context, "Name is required");
+                WriteError(context, "Qu?c gia l? b?t bu?c");
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(nameVi))
+            {
+                WriteError(context, "T?n t?nh/th?nh (VI) l? b?t bu?c");
                 return;
             }
 
             using (var db = new TripGoHubDbContext())
             {
-                var entity = new Province
+                var entity = new AdminUnit
                 {
-                    Name = name,
+                    CountryId = countryId,
+                    ParentId = null,
+                    LevelType = LevelProvince,
+                    Code = null,
                     Status = status,
                     SortOrder = sortOrder,
                     CreatedAt = DateTime.UtcNow,
@@ -124,7 +205,38 @@ namespace TripGoHub.Web.Admin.Api.SystemConfig
                     UpdatedAt = DateTime.UtcNow,
                     UpdatedBy = (context.Session["AdminUsername"] ?? "admin").ToString()
                 };
-                db.Provinces.Add(entity);
+                db.AdminUnits.Add(entity);
+                db.SaveChanges();
+
+                var lang = new AdminUnitLang
+                {
+                    AdminUnitId = entity.Id,
+                    Lang = DefaultLang,
+                    Name = nameVi,
+                    CreatedAt = DateTime.UtcNow,
+                    CreatedBy = (context.Session["AdminUsername"] ?? "admin").ToString(),
+                    UpdatedAt = DateTime.UtcNow,
+                    UpdatedBy = (context.Session["AdminUsername"] ?? "admin").ToString()
+                };
+                db.AdminUnitLang.Add(lang);
+                if (string.IsNullOrWhiteSpace(nameEn))
+                {
+                    nameEn = TranslateBasic(nameVi);
+                }
+                if (!string.IsNullOrWhiteSpace(nameEn))
+                {
+                    var langEn = new AdminUnitLang
+                    {
+                        AdminUnitId = entity.Id,
+                        Lang = "en",
+                        Name = nameEn,
+                        CreatedAt = DateTime.UtcNow,
+                        CreatedBy = (context.Session["AdminUsername"] ?? "admin").ToString(),
+                        UpdatedAt = DateTime.UtcNow,
+                        UpdatedBy = (context.Session["AdminUsername"] ?? "admin").ToString()
+                    };
+                    db.AdminUnitLang.Add(langEn);
+                }
                 db.SaveChanges();
             }
 
@@ -134,22 +246,71 @@ namespace TripGoHub.Web.Admin.Api.SystemConfig
         private void UpdateProvince(HttpContext context)
         {
             int id = ToInt(context.Request["id"]);
-            var name = (context.Request["name"] ?? string.Empty).Trim();
+            int countryId = ToInt(context.Request["countryId"]);
+            var nameVi = (context.Request["nameVi"] ?? string.Empty).Trim();
+            var nameEn = (context.Request["nameEn"] ?? string.Empty).Trim();
+            byte status = ToByte(context.Request["status"], 1);
+            int sortOrder = ToInt(context.Request["sortOrder"], 0);
 
             using (var db = new TripGoHubDbContext())
             {
-                var entity = db.Provinces.FirstOrDefault(x => x.Id == id);
+                var entity = db.AdminUnits.FirstOrDefault(x => x.Id == id && x.LevelType == LevelProvince);
                 if (entity == null)
                 {
-                    WriteError(context, "Not found");
+                    WriteError(context, "Kh?ng t?m th?y t?nh/th?nh");
                     return;
                 }
 
-                if (!string.IsNullOrWhiteSpace(name))
+                if (countryId > 0)
                 {
-                    entity.Name = name;
+                    entity.CountryId = countryId;
                 }
 
+                if (!string.IsNullOrWhiteSpace(nameVi))
+                {
+                    var lang = db.AdminUnitLang.FirstOrDefault(x => x.AdminUnitId == id && x.Lang == DefaultLang);
+                    if (lang == null)
+                    {
+                        lang = new AdminUnitLang
+                        {
+                            AdminUnitId = id,
+                            Lang = DefaultLang,
+                            CreatedAt = DateTime.UtcNow,
+                            CreatedBy = (context.Session["AdminUsername"] ?? "admin").ToString()
+                        };
+                        db.AdminUnitLang.Add(lang);
+                    }
+                    lang.Name = nameVi;
+                    lang.UpdatedAt = DateTime.UtcNow;
+                    lang.UpdatedBy = (context.Session["AdminUsername"] ?? "admin").ToString();
+                }
+
+                if (string.IsNullOrWhiteSpace(nameEn) && !string.IsNullOrWhiteSpace(nameVi))
+                {
+                    nameEn = TranslateBasic(nameVi);
+                }
+
+                if (!string.IsNullOrWhiteSpace(nameEn))
+                {
+                    var langEn = db.AdminUnitLang.FirstOrDefault(x => x.AdminUnitId == id && x.Lang == "en");
+                    if (langEn == null)
+                    {
+                        langEn = new AdminUnitLang
+                        {
+                            AdminUnitId = id,
+                            Lang = "en",
+                            CreatedAt = DateTime.UtcNow,
+                            CreatedBy = (context.Session["AdminUsername"] ?? "admin").ToString()
+                        };
+                        db.AdminUnitLang.Add(langEn);
+                    }
+                    langEn.Name = nameEn;
+                    langEn.UpdatedAt = DateTime.UtcNow;
+                    langEn.UpdatedBy = (context.Session["AdminUsername"] ?? "admin").ToString();
+                }
+
+                entity.Status = status;
+                entity.SortOrder = sortOrder;
                 entity.UpdatedAt = DateTime.UtcNow;
                 entity.UpdatedBy = (context.Session["AdminUsername"] ?? "admin").ToString();
                 db.SaveChanges();
@@ -158,15 +319,23 @@ namespace TripGoHub.Web.Admin.Api.SystemConfig
             WriteOk(context);
         }
 
-        private void DeleteProvince(HttpContext context)
+                private void TranslateProvince(HttpContext context)
+        {
+            var nameVi = (context.Request["nameVi"] ?? string.Empty).Trim();
+            var result = new { ok = true, data = new { nameEn = TranslateBasic(nameVi) } };
+            context.Response.ContentType = "application/json";
+            context.Response.Write(Newtonsoft.Json.JsonConvert.SerializeObject(result));
+        }
+
+private void DeleteProvince(HttpContext context)
         {
             int id = ToInt(context.Request["id"]);
             using (var db = new TripGoHubDbContext())
             {
-                var entity = db.Provinces.FirstOrDefault(x => x.Id == id);
+                var entity = db.AdminUnits.FirstOrDefault(x => x.Id == id && x.LevelType == LevelProvince);
                 if (entity != null)
                 {
-                    db.Provinces.Remove(entity);
+                    db.AdminUnits.Remove(entity);
                     db.SaveChanges();
                 }
             }
@@ -192,10 +361,77 @@ namespace TripGoHub.Web.Admin.Api.SystemConfig
             context.Response.Write("{\"ok\":true}");
         }
 
-        private static void WriteError(HttpContext context, string message)
+                        private static string TranslateBasic(string input)
+        {
+            if (string.IsNullOrWhiteSpace(input)) return input;
+            var value = input.Trim();
+
+            var map = new System.Collections.Generic.Dictionary<string, string>(System.StringComparer.OrdinalIgnoreCase)
+            {
+                { "Th?nh ph?", "City" },
+                { "Tp.", "City" },
+                { "TP.", "City" },
+                { "Tp", "City" },
+                { "TP", "City" },
+                { "T?nh", "Province" },
+                { "Qu?n", "District" },
+                { "Huy?n", "District" },
+                { "Th? x?", "Town" },
+                { "Th? tr?n", "Town" },
+                { "Ph??ng", "Ward" },
+                { "X?", "Commune" }
+            };
+
+            foreach (var pair in map)
+            {
+                value = System.Text.RegularExpressions.Regex.Replace(
+                    value,
+                    "" + System.Text.RegularExpressions.Regex.Escape(pair.Key) + "",
+                    pair.Value,
+                    System.Text.RegularExpressions.RegexOptions.IgnoreCase
+                );
+            }
+
+            return RemoveDiacritics(value);
+        }
+
+        private static string RemoveDiacritics(string text)
+        {
+            var normalized = text.Normalize(System.Text.NormalizationForm.FormD);
+            var sb = new System.Text.StringBuilder();
+            foreach (var ch in normalized)
+            {
+                var uc = System.Globalization.CharUnicodeInfo.GetUnicodeCategory(ch);
+                if (uc != System.Globalization.UnicodeCategory.NonSpacingMark)
+                {
+                    sb.Append(ch);
+                }
+            }
+            return sb.ToString().Normalize(System.Text.NormalizationForm.FormC);
+        }
+
+private static void WriteError(HttpContext context, string message)
         {
             context.Response.ContentType = "application/json";
             context.Response.Write("{\"ok\":false,\"message\":\"" + HttpUtility.JavaScriptStringEncode(message) + "\"}");
+        }
+
+        private static int GetCountryId(TripGoHubDbContext db, HttpContext context)
+        {
+            int countryId = ToInt(context.Request["countryId"]);
+            if (countryId > 0)
+            {
+                return countryId;
+            }
+
+            var defaultCountry = db.Countries.FirstOrDefault(x => x.IsDefault);
+            if (defaultCountry != null)
+            {
+                return defaultCountry.Id;
+            }
+
+            var vn = db.Countries.FirstOrDefault(x => x.Iso2 == "VN");
+            return vn != null ? vn.Id : 0;
         }
     }
 }

@@ -1,20 +1,20 @@
-﻿SET NOCOUNT ON;
+SET NOCOUNT ON;
 
-IF OBJECT_ID('dbo.tgh_transfer_booking_assign', 'U') IS NOT NULL DROP TABLE dbo.tgh_transfer_booking_assign;
-IF OBJECT_ID('dbo.tgh_transfer_booking', 'U') IS NOT NULL DROP TABLE dbo.tgh_transfer_booking;
-IF OBJECT_ID('dbo.tgh_route_price', 'U') IS NOT NULL DROP TABLE dbo.tgh_route_price;
-IF OBJECT_ID('dbo.tgh_route', 'U') IS NOT NULL DROP TABLE dbo.tgh_route;
-IF OBJECT_ID('dbo.tgh_driver', 'U') IS NOT NULL DROP TABLE dbo.tgh_driver;
-IF OBJECT_ID('dbo.tgh_vehicle', 'U') IS NOT NULL DROP TABLE dbo.tgh_vehicle;
-IF OBJECT_ID('dbo.tgh_vehicle_model', 'U') IS NOT NULL DROP TABLE dbo.tgh_vehicle_model;
-IF OBJECT_ID('dbo.tgh_vehicle_brand', 'U') IS NOT NULL DROP TABLE dbo.tgh_vehicle_brand;
-IF OBJECT_ID('dbo.tgh_vehicle_type', 'U') IS NOT NULL DROP TABLE dbo.tgh_vehicle_type;
+IF OBJECT_ID('dbo.trf_transfer_booking_assign', 'U') IS NOT NULL DROP TABLE dbo.trf_transfer_booking_assign;
+IF OBJECT_ID('dbo.trf_transfer_booking', 'U') IS NOT NULL DROP TABLE dbo.trf_transfer_booking;
+IF OBJECT_ID('dbo.trf_route_price', 'U') IS NOT NULL DROP TABLE dbo.trf_route_price;
+IF OBJECT_ID('dbo.trf_route', 'U') IS NOT NULL DROP TABLE dbo.trf_route;
+IF OBJECT_ID('dbo.trf_driver', 'U') IS NOT NULL DROP TABLE dbo.trf_driver;
+IF OBJECT_ID('dbo.trf_vehicle', 'U') IS NOT NULL DROP TABLE dbo.trf_vehicle;
+IF OBJECT_ID('dbo.trf_vehicle_model', 'U') IS NOT NULL DROP TABLE dbo.trf_vehicle_model;
+IF OBJECT_ID('dbo.trf_vehicle_brand', 'U') IS NOT NULL DROP TABLE dbo.trf_vehicle_brand;
+IF OBJECT_ID('dbo.trf_vehicle_type', 'U') IS NOT NULL DROP TABLE dbo.trf_vehicle_type;
 
-CREATE TABLE dbo.tgh_vehicle_type (
+CREATE TABLE dbo.trf_vehicle_type (
     VehicleTypeId INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
     Name NVARCHAR(100) NOT NULL,
     Capacity INT NOT NULL DEFAULT(4),
-    Description NVARCHAR(500) NULL,
+    Description NVARCHAR(MAX) NULL,
     Status TINYINT NOT NULL DEFAULT(1),
     SortOrder INT NOT NULL DEFAULT(0),
     CreatedAt DATETIME2 NOT NULL DEFAULT(SYSUTCDATETIME()),
@@ -23,15 +23,15 @@ CREATE TABLE dbo.tgh_vehicle_type (
     UpdatedBy NVARCHAR(100) NOT NULL DEFAULT(N'system')
 );
 
-CREATE TABLE dbo.tgh_vehicle_brand (
+CREATE TABLE dbo.trf_vehicle_brand (
     BrandId INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
     Name NVARCHAR(100) NOT NULL,
     Slug NVARCHAR(120) NOT NULL,
     LogoUrl NVARCHAR(300) NULL,
     LogoAlt NVARCHAR(200) NULL,
-    Summary NVARCHAR(500) NULL,
+    Summary NVARCHAR(MAX) NULL,
     SeoTitle NVARCHAR(200) NULL,
-    SeoDescription NVARCHAR(500) NULL,
+    SeoDescription NVARCHAR(MAX) NULL,
     SeoKeywords NVARCHAR(500) NULL,
     Status TINYINT NOT NULL DEFAULT(1),
     SortOrder INT NOT NULL DEFAULT(0),
@@ -41,9 +41,9 @@ CREATE TABLE dbo.tgh_vehicle_brand (
     UpdatedBy NVARCHAR(100) NOT NULL DEFAULT(N'system')
 );
 
-CREATE UNIQUE INDEX UX_tgh_vehicle_brand_Slug ON dbo.tgh_vehicle_brand (Slug);
+CREATE UNIQUE INDEX UX_trf_vehicle_brand_Slug ON dbo.trf_vehicle_brand (Slug);
 
-CREATE TABLE dbo.tgh_vehicle_model (
+CREATE TABLE dbo.trf_vehicle_model (
     ModelId INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
     BrandId INT NOT NULL,
     Name NVARCHAR(100) NOT NULL,
@@ -51,19 +51,19 @@ CREATE TABLE dbo.tgh_vehicle_model (
     YearFrom INT NULL,
     YearTo INT NULL,
     SeoTitle NVARCHAR(200) NULL,
-    SeoDescription NVARCHAR(500) NULL,
+    SeoDescription NVARCHAR(MAX) NULL,
     Status TINYINT NOT NULL DEFAULT(1),
     SortOrder INT NOT NULL DEFAULT(0),
     CreatedAt DATETIME2 NOT NULL DEFAULT(SYSUTCDATETIME()),
     CreatedBy NVARCHAR(100) NOT NULL DEFAULT(N'system'),
     UpdatedAt DATETIME2 NOT NULL DEFAULT(SYSUTCDATETIME()),
     UpdatedBy NVARCHAR(100) NOT NULL DEFAULT(N'system'),
-    CONSTRAINT FK_tgh_vehicle_model_brand FOREIGN KEY (BrandId) REFERENCES dbo.tgh_vehicle_brand (BrandId)
+    CONSTRAINT FK_trf_vehicle_model_brand FOREIGN KEY (BrandId) REFERENCES dbo.trf_vehicle_brand (BrandId)
 );
 
-CREATE UNIQUE INDEX UX_tgh_vehicle_model_Brand_Slug ON dbo.tgh_vehicle_model (BrandId, Slug);
+CREATE UNIQUE INDEX UX_trf_vehicle_model_Brand_Slug ON dbo.trf_vehicle_model (BrandId, Slug);
 
-CREATE TABLE dbo.tgh_vehicle (
+CREATE TABLE dbo.trf_vehicle (
     VehicleId INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
     VehicleTypeId INT NOT NULL,
     BrandId INT NULL,
@@ -79,14 +79,14 @@ CREATE TABLE dbo.tgh_vehicle (
     CreatedBy NVARCHAR(100) NOT NULL DEFAULT(N'system'),
     UpdatedAt DATETIME2 NOT NULL DEFAULT(SYSUTCDATETIME()),
     UpdatedBy NVARCHAR(100) NOT NULL DEFAULT(N'system'),
-    CONSTRAINT FK_tgh_vehicle_vehicle_type FOREIGN KEY (VehicleTypeId) REFERENCES dbo.tgh_vehicle_type (VehicleTypeId),
-    CONSTRAINT FK_tgh_vehicle_brand FOREIGN KEY (BrandId) REFERENCES dbo.tgh_vehicle_brand (BrandId),
-    CONSTRAINT FK_tgh_vehicle_model FOREIGN KEY (ModelId) REFERENCES dbo.tgh_vehicle_model (ModelId)
+    CONSTRAINT FK_trf_vehicle_vehicle_type FOREIGN KEY (VehicleTypeId) REFERENCES dbo.trf_vehicle_type (VehicleTypeId),
+    CONSTRAINT FK_trf_vehicle_brand FOREIGN KEY (BrandId) REFERENCES dbo.trf_vehicle_brand (BrandId),
+    CONSTRAINT FK_trf_vehicle_model FOREIGN KEY (ModelId) REFERENCES dbo.trf_vehicle_model (ModelId)
 );
 
-CREATE UNIQUE INDEX UX_tgh_vehicle_LicensePlate ON dbo.tgh_vehicle (LicensePlate);
+CREATE UNIQUE INDEX UX_trf_vehicle_LicensePlate ON dbo.trf_vehicle (LicensePlate);
 
-CREATE TABLE dbo.tgh_driver (
+CREATE TABLE dbo.trf_driver (
     DriverId INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
     FullName NVARCHAR(200) NOT NULL,
     Phone NVARCHAR(30) NOT NULL,
@@ -100,7 +100,7 @@ CREATE TABLE dbo.tgh_driver (
     UpdatedBy NVARCHAR(100) NOT NULL DEFAULT(N'system')
 );
 
-CREATE TABLE dbo.tgh_route (
+CREATE TABLE dbo.trf_route (
     RouteId INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
     FromName NVARCHAR(200) NOT NULL,
     ToName NVARCHAR(200) NOT NULL,
@@ -114,7 +114,7 @@ CREATE TABLE dbo.tgh_route (
     UpdatedBy NVARCHAR(100) NOT NULL DEFAULT(N'system')
 );
 
-CREATE TABLE dbo.tgh_route_price (
+CREATE TABLE dbo.trf_route_price (
     RoutePriceId INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
     RouteId INT NOT NULL,
     VehicleTypeId INT NOT NULL,
@@ -126,13 +126,13 @@ CREATE TABLE dbo.tgh_route_price (
     CreatedBy NVARCHAR(100) NOT NULL DEFAULT(N'system'),
     UpdatedAt DATETIME2 NOT NULL DEFAULT(SYSUTCDATETIME()),
     UpdatedBy NVARCHAR(100) NOT NULL DEFAULT(N'system'),
-    CONSTRAINT FK_tgh_route_price_route FOREIGN KEY (RouteId) REFERENCES dbo.tgh_route (RouteId),
-    CONSTRAINT FK_tgh_route_price_vehicle_type FOREIGN KEY (VehicleTypeId) REFERENCES dbo.tgh_vehicle_type (VehicleTypeId)
+    CONSTRAINT FK_trf_route_price_route FOREIGN KEY (RouteId) REFERENCES dbo.trf_route (RouteId),
+    CONSTRAINT FK_trf_route_price_vehicle_type FOREIGN KEY (VehicleTypeId) REFERENCES dbo.trf_vehicle_type (VehicleTypeId)
 );
 
-CREATE UNIQUE INDEX UX_tgh_route_price_Route_VehicleType ON dbo.tgh_route_price (RouteId, VehicleTypeId);
+CREATE UNIQUE INDEX UX_trf_route_price_Route_VehicleType ON dbo.trf_route_price (RouteId, VehicleTypeId);
 
-CREATE TABLE dbo.tgh_transfer_booking (
+CREATE TABLE dbo.trf_transfer_booking (
     BookingId INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
     BookingCode NVARCHAR(30) NOT NULL,
     CustomerName NVARCHAR(200) NOT NULL,
@@ -142,24 +142,24 @@ CREATE TABLE dbo.tgh_transfer_booking (
     VehicleTypeId INT NOT NULL,
     PickupTime DATETIME2 NOT NULL,
     ReturnTime DATETIME2 NULL,
-    TripType TINYINT NOT NULL, -- 1: OneWay, 2: RoundTrip
-    PaymentType TINYINT NOT NULL, -- 1: Online, 2: Hold
-    PaymentStatus TINYINT NOT NULL DEFAULT(0), -- 0: Unpaid, 1: Paid, 2: Refunded
+    TripType TINYINT NOT NULL,
+    PaymentType TINYINT NOT NULL,
+    PaymentStatus TINYINT NOT NULL DEFAULT(0),
     TotalAmount DECIMAL(18,2) NOT NULL,
-    Note NVARCHAR(1000) NULL,
+    Note NVARCHAR(MAX) NULL,
     Status TINYINT NOT NULL DEFAULT(1),
     SortOrder INT NOT NULL DEFAULT(0),
     CreatedAt DATETIME2 NOT NULL DEFAULT(SYSUTCDATETIME()),
     CreatedBy NVARCHAR(100) NOT NULL DEFAULT(N'system'),
     UpdatedAt DATETIME2 NOT NULL DEFAULT(SYSUTCDATETIME()),
     UpdatedBy NVARCHAR(100) NOT NULL DEFAULT(N'system'),
-    CONSTRAINT FK_tgh_transfer_booking_route FOREIGN KEY (RouteId) REFERENCES dbo.tgh_route (RouteId),
-    CONSTRAINT FK_tgh_transfer_booking_vehicle_type FOREIGN KEY (VehicleTypeId) REFERENCES dbo.tgh_vehicle_type (VehicleTypeId)
+    CONSTRAINT FK_trf_transfer_booking_route FOREIGN KEY (RouteId) REFERENCES dbo.trf_route (RouteId),
+    CONSTRAINT FK_trf_transfer_booking_vehicle_type FOREIGN KEY (VehicleTypeId) REFERENCES dbo.trf_vehicle_type (VehicleTypeId)
 );
 
-CREATE UNIQUE INDEX UX_tgh_transfer_booking_BookingCode ON dbo.tgh_transfer_booking (BookingCode);
+CREATE UNIQUE INDEX UX_trf_transfer_booking_BookingCode ON dbo.trf_transfer_booking (BookingCode);
 
-CREATE TABLE dbo.tgh_transfer_booking_assign (
+CREATE TABLE dbo.trf_transfer_booking_assign (
     AssignId INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
     BookingId INT NOT NULL,
     VehicleId INT NOT NULL,
@@ -171,7 +171,7 @@ CREATE TABLE dbo.tgh_transfer_booking_assign (
     CreatedBy NVARCHAR(100) NOT NULL DEFAULT(N'system'),
     UpdatedAt DATETIME2 NOT NULL DEFAULT(SYSUTCDATETIME()),
     UpdatedBy NVARCHAR(100) NOT NULL DEFAULT(N'system'),
-    CONSTRAINT FK_tgh_transfer_booking_assign_booking FOREIGN KEY (BookingId) REFERENCES dbo.tgh_transfer_booking (BookingId),
-    CONSTRAINT FK_tgh_transfer_booking_assign_vehicle FOREIGN KEY (VehicleId) REFERENCES dbo.tgh_vehicle (VehicleId),
-    CONSTRAINT FK_tgh_transfer_booking_assign_driver FOREIGN KEY (DriverId) REFERENCES dbo.tgh_driver (DriverId)
+    CONSTRAINT FK_trf_transfer_booking_assign_booking FOREIGN KEY (BookingId) REFERENCES dbo.trf_transfer_booking (BookingId),
+    CONSTRAINT FK_trf_transfer_booking_assign_vehicle FOREIGN KEY (VehicleId) REFERENCES dbo.trf_vehicle (VehicleId),
+    CONSTRAINT FK_trf_transfer_booking_assign_driver FOREIGN KEY (DriverId) REFERENCES dbo.trf_driver (DriverId)
 );

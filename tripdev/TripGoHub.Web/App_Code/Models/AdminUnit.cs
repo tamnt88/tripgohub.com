@@ -1,19 +1,25 @@
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TripGoHub.Web
 {
-    [Table("tgh_Province")]
-    public class Province
+    [Table("tgh_admin_unit")]
+    public class AdminUnit
     {
         [Key]
+        [Column("AdminUnitId")]
         public int Id { get; set; }
 
+        public int CountryId { get; set; }
+        public int? ParentId { get; set; }
+
         [Required]
-        [StringLength(200)]
-        public string Name { get; set; }
+        [StringLength(30)]
+        public string LevelType { get; set; }
+
+        [StringLength(50)]
+        public string Code { get; set; }
 
         public byte Status { get; set; }
         public int SortOrder { get; set; }
@@ -21,7 +27,5 @@ namespace TripGoHub.Web
         public string CreatedBy { get; set; }
         public DateTime UpdatedAt { get; set; }
         public string UpdatedBy { get; set; }
-
-        public virtual ICollection<Ward> Wards { get; set; }
     }
 }

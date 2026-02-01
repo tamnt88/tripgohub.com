@@ -1,27 +1,46 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Site.master.cs" Inherits="TripGoHub.Web.SiteMaster" %>
+<%@ Import Namespace="TripGoHub.Web" %>
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="<%= CurrentLang %>">
 <head runat="server">
     <meta charset="utf-8" />
     <title><asp:ContentPlaceHolder ID="TitleContent" runat="server">TripGoHub</asp:ContentPlaceHolder></title>
+    <link rel="icon" type="image/png" href="<%: ResolveUrl("~/fav.png") %>" />
     <link rel="stylesheet" href="<%: ResolveUrl("~/Content/vendor/bootstrap/css/bootstrap.min.css") %>" />
     <link rel="stylesheet" href="<%: ResolveUrl("~/Content/vendor/fontawesome/css/all.min.css") %>" />
     <link rel="stylesheet" href="<%: ResolveUrl("~/Content/site.css") %>" />
+    <link rel="stylesheet" href="<%: ResolveUrl("~/Content/site.mobile.css") %>" />
 </head>
-<body>
+<body data-lang="<%= CurrentLang %>">
     <form id="form1" runat="server">
         <header class="topbar">
-            <div class="brand">TripGoHub</div>
+            <div class="brand">
+                <a href="<%= HomeUrl %>" class="brand-link" aria-label="TripGoHub">
+                    <img src="<%: ResolveUrl("~/logo.png") %>" alt="TripGoHub" class="brand-logo" />
+                </a>
+            </div>
             <nav class="nav">
-                <a href="#">Sim du lịch</a>
-                <a href="#">Vé tham quan</a>
-                <a href="<%: ResolveUrl("~/transfer/booking.aspx") %>">Xe di chuyển</a>
-                <a href="#">Homestay</a>
-                <a href="#">Tour</a>
-                <a href="#">Vé máy bay</a>
-                <a href="#">Phòng khách sạn</a>
+                <% foreach (var item in PublicMenuItems) { %>
+                    <a href="<%= string.IsNullOrWhiteSpace(item.Url) ? "#" : item.Url %>"><%= item.Title %></a>
+                <% } %>
             </nav>
             <div class="actions">
+                <div class="lang-dropdown" aria-label="Chọn ngôn ngữ">
+                    <button type="button" class="lang-trigger" id="LangTrigger">
+                        <% var currentLangObj = SupportedLanguages.FirstOrDefault(x => x.LangCode == CurrentLang); %>
+                        <img src="<%= currentLangObj != null ? currentLangObj.FlagUrl : "/lang/vietnam.png" %>" alt="<%= currentLangObj != null ? (currentLangObj.NativeName ?? currentLangObj.Name) : "Tiếng Việt" %>" />
+                        <span><%= currentLangObj != null ? (currentLangObj.NativeName ?? currentLangObj.Name) : "Tiếng Việt" %></span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <div class="lang-menu" id="LangMenu">
+                        <% foreach (var lang in SupportedLanguages) { %>
+                            <a class="lang-option <%= CurrentLang == lang.LangCode ? "is-active" : "" %>" href="<%= LangHelper.BuildLangUrl(Request, lang.LangCode) %>">
+                                <img src="<%= lang.FlagUrl %>" alt="<%= lang.NativeName ?? lang.Name %>" />
+                                <span><%= lang.NativeName ?? lang.Name %></span>
+                            </a>
+                        <% } %>
+                    </div>
+                </div>
                 <button type="button" class="btn btn--ghost"><i class="fa-solid fa-user"></i> Đăng nhập</button>
                 <button type="button" class="btn btn--primary"><i class="fa-solid fa-user-plus"></i> Tạo tài khoản</button>
             </div>
@@ -30,10 +49,76 @@
         <main>
             <asp:ContentPlaceHolder ID="MainContent" runat="server"></asp:ContentPlaceHolder>
         </main>
+
+        <footer class="site-footer">
+            <div class="footer-grid">
+                <div>
+                    <h5>Liên Hệ Với Chúng Tôi</h5>
+                    <ul>
+                        <li><a href="#">Chăm Sóc Khách Hàng</a></li>
+                        <li><a href="#">Bảo Đảm Dịch Vụ</a></li>
+                        <li><a href="#">Xem thêm thông tin dịch vụ</a></li>
+                    </ul>
+                    <div class="footer-social">
+                        <a href="#" aria-label="Facebook"><img src="<%: ResolveUrl("~/images/social/facebook.png") %>" alt="Facebook" /></a>
+                        <a href="#" aria-label="Instagram"><img src="<%: ResolveUrl("~/images/social/instagram.png") %>" alt="Instagram" /></a>
+                        <a href="#" aria-label="TikTok"><img src="<%: ResolveUrl("~/images/social/tik-tok.png") %>" alt="TikTok" /></a>
+                        <a href="#" aria-label="WhatsApp"><img src="<%: ResolveUrl("~/images/social/whatsapp.png") %>" alt="WhatsApp" /></a>
+                        <a href="#" aria-label="YouTube"><img src="<%: ResolveUrl("~/images/social/youtube.png") %>" alt="YouTube" /></a>
+                    </div>
+                </div>
+                <div>
+                    <h5>Về Tripgohub.com</h5>
+                    <ul>
+                        <li><a href="#">Về Tripgohub.com</a></li>
+                        <li><a href="#">Tin Tức</a></li>
+                        <li><a href="#">Tuyển dụng</a></li>
+                        <li><a href="#">Điều Khoản &amp; Điều Kiện</a></li>
+                        <li><a href="#">Tuyên bố quyền riêng tư</a></li>
+                        <li><a href="#">Giới Thiệu Về Tập Đoàn Tripgohub.com</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5>Các Dịch Vụ Khác</h5>
+                    <ul>
+                        <li><a href="#">Quan Hệ Đầu Tư</a></li>
+                        <li><a href="#">Phần Thưởng Tripgohub.com</a></li>
+                        <li><a href="#">Chương trình đối tác liên kết</a></li>
+                        <li><a href="#">Đăng Cơ Sở Lưu Trú</a></li>
+                        <li><a href="#">Bảo Mật</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5>Phương thức thanh toán</h5>
+                    <div class="payment-grid">
+                        <img src="<%: ResolveUrl("~/images/payment/1.png") %>" alt="Payment 1" />
+                        <img src="<%: ResolveUrl("~/images/payment/2.png") %>" alt="Payment 2" />
+                        <img src="<%: ResolveUrl("~/images/payment/3.png") %>" alt="Payment 3" />
+                        <img src="<%: ResolveUrl("~/images/payment/4.png") %>" alt="Payment 4" />
+                    </div>
+                    <h5 class="mt-4">Đối Tác Của Chúng Tôi</h5>
+                    <div class="partner-row">
+                        <img src="<%: ResolveUrl("~/images/partner/1.png") %>" alt="Partner 1" />
+                        <img src="<%: ResolveUrl("~/images/partner/2.png") %>" alt="Partner 2" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-awards">
+                <img src="<%: ResolveUrl("~/images/award/1.png") %>" alt="Award 1" />
+                <img src="<%: ResolveUrl("~/images/award/2.webp") %>" alt="Award 2" />
+            </div>
+
+            <div class="footer-bottom">
+                <div>Bản quyền © 2025 Tripgohub.com. Bảo lưu mọi quyền.</div>
+                <div>Nhà điều hành trang: Tripgohub.com</div>
+            </div>
+        </footer>
     </form>
 
     <script src="<%: ResolveUrl("~/Content/vendor/jquery/jquery.min.js") %>"></script>
     <script src="<%: ResolveUrl("~/Content/vendor/bootstrap/js/bootstrap.bundle.min.js") %>"></script>
+    <script src="<%: ResolveUrl("~/Content/site.js") %>"></script>
     <asp:ContentPlaceHolder ID="Scripts" runat="server"></asp:ContentPlaceHolder>
 </body>
 </html>

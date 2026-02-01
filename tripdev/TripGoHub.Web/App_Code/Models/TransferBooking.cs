@@ -1,10 +1,10 @@
-﻿using System;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TripGoHub.Web
 {
-    [Table("tgh_transfer_booking")]
+    [Table("trf_transfer_booking")]
     public class TransferBooking
     {
         [Key]
@@ -34,7 +34,6 @@ namespace TripGoHub.Web
         public byte PaymentStatus { get; set; }
         public decimal TotalAmount { get; set; }
 
-        [StringLength(1000)]
         public string Note { get; set; }
 
         public byte Status { get; set; }

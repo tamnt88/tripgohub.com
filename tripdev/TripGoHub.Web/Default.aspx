@@ -229,7 +229,7 @@
             '&dropoff=' + encodeURIComponent(dropoff) +
             '&trip=' + encodeURIComponent(tripType) +
             '&vehicle=' + encodeURIComponent(vehicleType);
-        return '<%: ResolveUrl("~/transfer/booking.aspx") %>' + query;
+        return '<%= ((TripGoHub.Web.SiteMaster)Master).TransferBookingUrl %>' + query;
     }
 
     $('#BtnFindTransfer').on('click', function () {

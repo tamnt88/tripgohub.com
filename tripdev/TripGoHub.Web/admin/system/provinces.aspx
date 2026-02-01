@@ -1,116 +1,54 @@
-<%@ Page Title="Qu?n tr? T?nh" Language="C#" MasterPageFile="~/admin/Admin.master" AutoEventWireup="true" CodeFile="provinces.aspx.cs" Inherits="TripGoHub.Web.Admin.SystemConfig.Provinces" %>
-<asp:Content ID="TitleBlock" ContentPlaceHolderID="TitleContent" runat="server">Qu?n tr? T?nh</asp:Content>
+﻿<%@ Page Title="Quản trị Tỉnh/Thành" Language="C#" MasterPageFile="~/admin/Admin.master" AutoEventWireup="true" CodeFile="provinces.aspx.cs" Inherits="TripGoHub.Web.Admin.SystemConfig.Provinces" %>
+<asp:Content ID="ContentTitle" ContentPlaceHolderID="TitleContent" runat="server">Quản trị Tỉnh/Thành</asp:Content>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-    <div class="d-flex align-items-center justify-content-between mb-3">
-        <h1 class="h4 fw-bold mb-0">T?nh/Th�nh</h1>
-        <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#provinceModal">
-            <i class="fa-solid fa-plus"></i> Th�m m?i
-        </button>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3 class="mb-0">Quản lý tỉnh/thành</h3>
+        <a href="province_edit.aspx" class="btn btn-warning"><i class="fa-solid fa-plus"></i> Thêm tỉnh/thành</a>
     </div>
-    <table id="tblProvinces" class="table table-striped table-bordered w-100">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>T�n</th>
-                <th>Status</th>
-                <th>SortOrder</th>
-                <th>H�nh d?ng</th>
-            </tr>
-        </thead>
-    </table>
 
-    <div class="modal fade" id="provinceModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Th�m T?nh/Th�nh</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <label class="form-label">T�n</label>
-                        <input type="text" class="form-control" id="ProvinceName" />
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Status</label>
-                        <input type="number" class="form-control" id="ProvinceStatus" value="1" />
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">SortOrder</label>
-                        <input type="number" class="form-control" id="ProvinceSort" value="0" />
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">H?y</button>
-                    <button type="button" class="btn btn-warning" id="BtnSaveProvince">Luu</button>
-                </div>
+    <div class="admin-filter mb-3">
+        <div class="row g-2 align-items-end">
+            <div class="col-12 col-md-3">
+                <label for="ProvinceCountry" class="form-label">Quốc gia</label>
+                <select class="form-select" id="ProvinceCountry"></select>
+            </div>
+            <div class="col-12 col-md-3">
+                <label for="ProvinceStatus" class="form-label">Trạng thái</label>
+                <select class="form-select" id="ProvinceStatus">
+                    <option value="">Tất cả</option>
+                    <option value="1">Đang hiển thị</option>
+                    <option value="0">Đang ẩn</option>
+                </select>
+            </div>
+            <div class="col-12 col-md-4">
+                <label for="ProvinceKeyword" class="form-label">Từ khóa</label>
+                <input type="text" class="form-control" id="ProvinceKeyword" placeholder="Nhập tên tỉnh/thành" />
+            </div>
+            <div class="col-12 col-md-2 d-flex gap-2">
+                <button type="button" id="BtnProvinceFilter" class="btn btn-primary"><i class="fa-solid fa-filter"></i> Lọc</button>
+                <button type="button" id="BtnProvinceReset" class="btn btn-outline-secondary"><i class="fa-solid fa-rotate"></i> Làm mới</button>
             </div>
         </div>
     </div>
+
+    <div id="adminLoading" class="admin-loading" aria-hidden="true">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Đang tải...</span>
+        </div>
+    </div>
+
+    <table id="tblProvinces" class="table table-striped table-bordered w-100">
+        <thead>
+            <tr>
+                <th>Tên tỉnh/thành</th>
+                <th>Trạng thái</th>
+                <th>Thứ tự</th>
+                <th>Thao tác</th>
+            </tr>
+        </thead>
+    </table>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="Scripts" runat="server">
-<script>
-    $(function () {
-        var table = $('#tblProvinces').DataTable({
-            serverSide: true,
-            processing: true,
-            ajax: {
-                url: '../api/system/provinces.ashx',
-                type: 'POST'
-            },
-            columns: [
-                { data: 'Id' },
-                { data: 'Name' },
-                { data: 'Status' },
-                { data: 'SortOrder' },
-                {
-                    data: null,
-                    orderable: false,
-                    render: function (data) {
-                        return '<button class="btn btn-sm btn-outline-primary me-1 edit" data-id="' + data.Id + '"><i class="fa-regular fa-pen-to-square"></i></button>' +
-                               '<button class="btn btn-sm btn-outline-danger delete" data-id="' + data.Id + '"><i class="fa-regular fa-trash-can"></i></button>';
-                    }
-                }
-            ]
-        });
-
-        $('#BtnSaveProvince').on('click', function () {
-            $.ajax({
-                url: '../api/system/provinces.ashx',
-                type: 'POST',
-                data: {
-                    action: 'create',
-                    name: $('#ProvinceName').val(),
-                    status: $('#ProvinceStatus').val(),
-                    sortOrder: $('#ProvinceSort').val()
-                }
-            }).done(function () {
-                $('#provinceModal').modal('hide');
-                table.ajax.reload();
-            });
-        });
-
-        $('#tblProvinces').on('click', 'button.delete', function () {
-            if (!confirm('X�a m?c n�y?')) return;
-            var id = $(this).data('id');
-            $.ajax({
-                url: '../api/system/provinces.ashx',
-                type: 'POST',
-                data: { action: 'delete', id: id }
-            }).done(function () { table.ajax.reload(); });
-        });
-
-        $('#tblProvinces').on('click', 'button.edit', function () {
-            var id = $(this).data('id');
-            var name = prompt('T�n m?i');
-            if (!name) return;
-            $.ajax({
-                url: '../api/system/provinces.ashx',
-                type: 'POST',
-                data: { action: 'update', id: id, name: name }
-            }).done(function () { table.ajax.reload(); });
-        });
-    });
-</script>
+    <script src="../assets/js/provinces.js"></script>
 </asp:Content>

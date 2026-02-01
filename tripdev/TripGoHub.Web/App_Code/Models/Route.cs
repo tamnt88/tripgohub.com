@@ -1,10 +1,10 @@
-﻿using System;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TripGoHub.Web
 {
-    [Table("tgh_route")]
+    [Table("trf_route")]
     public class Route
     {
         [Key]
@@ -20,6 +20,7 @@ namespace TripGoHub.Web
 
         public decimal? DistanceKm { get; set; }
         public int? DurationMin { get; set; }
+
         public byte Status { get; set; }
         public int SortOrder { get; set; }
         public DateTime CreatedAt { get; set; }

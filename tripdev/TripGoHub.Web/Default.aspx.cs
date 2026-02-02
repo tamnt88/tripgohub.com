@@ -9,6 +9,7 @@ namespace TripGoHub.Web
         protected void Page_Load(object sender, EventArgs e)
         {
             BindRouteJson();
+            BindTransferUrl();
         }
 
         private void BindRouteJson()
@@ -40,7 +41,16 @@ namespace TripGoHub.Web
                 }).ToList();
 
                 var serializer = new JavaScriptSerializer();
-                RouteDataJsonHome.Text = serializer.Serialize(list);
+                RouteDataJsonHome.Value = serializer.Serialize(list);
+            }
+        }
+
+        private void BindTransferUrl()
+        {
+            var master = Master as TripGoHub.Web.SiteMaster;
+            if (master != null)
+            {
+                TransferBookingUrl.Value = master.TransferBookingUrl;
             }
         }
 

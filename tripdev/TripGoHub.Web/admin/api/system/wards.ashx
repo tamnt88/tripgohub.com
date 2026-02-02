@@ -104,6 +104,7 @@ private void WriteDataTable(HttpContext context)
             string keyword = context.Request["keyword"] ?? string.Empty;
             string statusValue = context.Request["status"] ?? string.Empty;
             int provinceId = ToInt(context.Request["provinceId"]);
+            int countryId = ToInt(context.Request["countryId"]);
 
             using (var db = new TripGoHubDbContext())
             {

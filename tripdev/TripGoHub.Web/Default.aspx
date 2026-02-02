@@ -191,51 +191,7 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="Scripts" runat="server">
-    <asp:Literal ID="RouteDataJsonHome" runat="server" Visible="false"></asp:Literal>
-<script>
-    $('.search-tabs .tab').on('click', function () {
-        var target = $(this).data('target');
-        $('.search-tabs .tab').removeClass('tab--active');
-        $(this).addClass('tab--active');
-        $('.tab-panel').removeClass('is-active');
-        $(target).addClass('is-active');
-    });
-
-    var homeRoutes = <%= RouteDataJsonHome.Text %>;
-
-    function fillHomeRouteLists() {
-        var pickupList = document.getElementById('pickupHomeList');
-        var dropoffList = document.getElementById('dropoffHomeList');
-        if (!pickupList || !dropoffList) return;
-        pickupList.innerHTML = '';
-        dropoffList.innerHTML = '';
-        homeRoutes.forEach(function (r) {
-            var opt1 = document.createElement('option');
-            opt1.value = r.FromName;
-            pickupList.appendChild(opt1);
-            var opt2 = document.createElement('option');
-            opt2.value = r.ToName;
-            dropoffList.appendChild(opt2);
-        });
-    }
-
-    function buildTransferUrl() {
-        var pickup = document.getElementById('PickupHome').value.trim();
-        var dropoff = document.getElementById('DropoffHome').value.trim();
-        var vehicleType = document.getElementById('VehicleTypeHome').value;
-        var tripTypeText = document.getElementById('TripTypeHome').value;
-        var tripType = tripTypeText.indexOf('Khứ hồi') >= 0 ? 'round' : 'oneway';
-        var query = '?pickup=' + encodeURIComponent(pickup) +
-            '&dropoff=' + encodeURIComponent(dropoff) +
-            '&trip=' + encodeURIComponent(tripType) +
-            '&vehicle=' + encodeURIComponent(vehicleType);
-        return '<%= ((TripGoHub.Web.SiteMaster)Master).TransferBookingUrl %>' + query;
-    }
-
-    $('#BtnFindTransfer').on('click', function () {
-        window.location.href = buildTransferUrl();
-    });
-
-    fillHomeRouteLists();
-</script>
+    <asp:HiddenField ID="RouteDataJsonHome" runat="server" />
+    <asp:HiddenField ID="TransferBookingUrl" runat="server" />
+    <script src="Content/home.js"></script>
 </asp:Content>

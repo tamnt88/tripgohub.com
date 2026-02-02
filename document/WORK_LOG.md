@@ -76,6 +76,10 @@
 - Tải và dùng local assets cho jsTree (CSS/JS).
 - Bổ sung `32px.png`, `40px.png`, `throbber.gif` cho jsTree.
 
+### 11) Fix lỗi build/warning (Default + wards API)
+- `admin/api/system/wards.ashx`: bổ sung biến `countryId` trong `WriteDataTable` để hết lỗi biên dịch.
+- `Default.aspx` + `Default.aspx.cs`: thay inline JS bằng file `Content/home.js`, chuyển dữ liệu route/transfer sang `HiddenField` để tránh cảnh báo TS1109.
+
 ## Seed/SQL
 - `document/tripgohub_reset_all.sql` cập nhật theo schema mới.
 - `document/tripgohub_admin_menu_seed.sql` bỏ menu provinces/wards.
